@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Budget Planner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}" />
+</head>
+<body>
+    <h1 id="title">This is the index page</h1>
+    <h2 class="list">{{ list }}</h2>
+
+    <!--Add-->
+    <form method="POST" id="add">
+        <input type="text" id="name" placeholder="Name">
+        <input type="text" id="priority" placeholder="Priority">
+        <input type="text" id="price" placeholder="Price">
+        <input type="text" id="money" placeholder="Money">
+        <button>Add</button>
+    </form>
+
+    <!--Delete-->
+    <form method="POST" id="delete">
+        <input type="text" id="item_id" placeholder="Id">
+        <button>Delete</button>
+    </form>
+
+    <div class="result"></div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+</body>
+</html>
