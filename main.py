@@ -4,6 +4,8 @@ import pymysql
 
 app = Flask(__name__)
 
+# Test
+
 @app.route("/")
 def index():
     return render_template("index.html", list=mysqlcommands.get_items())
