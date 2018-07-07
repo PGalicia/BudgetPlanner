@@ -1,12 +1,14 @@
 from flask import Flask, render_template, request, jsonify
 import mysqlcommands
-import pymysql
+import jsoncommands
 
 app = Flask(__name__)
 
+
 @app.route("/")
 def index():
-    return render_template("index.html", list=mysqlcommands.get_all_items())
+    myObj = jsoncommands.getJSON("./money.json")
+    return render_template("index.html", list=mysqlcommands.get_all_items(), total=myObj['Total'], percentage=myObj['Percentage'])
 
 
 # Add an item to the database
