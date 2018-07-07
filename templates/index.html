@@ -26,6 +26,33 @@
 
     <div class="result"></div>
 
+    <!--Get-->
+    <form method="POST" id="get">
+        <input type="text" id="item_id_get" placeholder="Id">
+        <button>Get</button>
+    </form>
+
+    <div class="get_result"></div>
+
+    <!--Update-->
+    <form method="POST" id="update">
+        <input type="text" id="item_id_update" placeholder="Id">
+        <input type="radio" name="edit" value="name">Name
+        <input type="radio" name="edit" value="priority">Priority
+        <input type="radio" name="edit" value="price">Price
+        <input type="radio" name="edit" value="money">Money
+        <input type="text" id="new" placeholder="New Value">
+        <button>Update</button>
+    </form>
+
+    <div class="update_result"></div>
+
+    <!--<p>-->
+        <!--<input type="radio" name="gender" value="male">Male-->
+        <!--<input type="radio" name="gender" value="female">Female-->
+    <!--</p>-->
+    <!--<button>Press</button>-->
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 </body>
