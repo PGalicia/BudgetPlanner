@@ -7,6 +7,7 @@ def getJSON(filePathAndName):
 
 
 # Write JSON file
+# Change Total
 def setJSON_total(filePathAndName, total):
     with open(filePathAndName, 'r+') as f:
         json_data = json.load(f)
@@ -17,7 +18,7 @@ def setJSON_total(filePathAndName, total):
         f.write(json.dumps(json_data))
         f.truncate()
 
-
+# Change Percentage
 def setJSON_percentage(filePathAndName, percentage):
     with open(filePathAndName, 'r+') as f:
         json_data = json.load(f)
