@@ -7,9 +7,27 @@
 <body>
 
     <div class="display">{{ list }}</div>
-    <div class="container"></div>
+    <!--<div class="container">-->
+        <!--<div class="row item">-->
+            <!--<div class="col-5 name-col">Item 1</div>-->
+            <!--<button type="button" class="btn btn-danger delete">Delete</button>-->
+        <!--</div>-->
+    <!--</div>-->
 
-    <button>Refresh</button>
+    <div class="container-fluid item-wrapper">
+        {% for item in list %}
+            <div class="row item">
+                <div class="priority">{{ item[2] }}</div>
+                <div class="col-5 name-col">{{ item[1] }}</div>
+                <div class="id">{{ item[0] }}</div>
+                <div class="price">{{ item[4] }}/{{ item[3] }}</div>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#itemModal">Edit</button>
+                <button type="button" class="btn btn-danger delete">Delete</button>
+            </div>
+        {% endfor %}
+    </div>
+
+    <button class="refresh">Refresh</button>
 
 
 
@@ -18,11 +36,12 @@
         $(document).ready(function() {
 
             $.fn.myFunction = function(list){
-                console.log(list);
+                // console.log(list);
+                $(this).empty();
                 var result = $(this);
                 for(var i = 0; i < list.length; i++) {
 
-                    console.log(list[i])
+                    // console.log(list[i])
                     var id = list[i][0];
                     var name = list[i][1];
                     var priority = list[i][2];
@@ -33,18 +52,17 @@
                     result.append("<div class='row item'></div>");
                     var row = $(".item").last();
 
-                    row.html("<div class='priority'>" + priority + "</div>");
                     row.append("<div class='col-5 name-col'>" + name + "</div>");
-                    row.append("<div class='id'>" + id + "</div>");
-                    row.append("<div class='price'>" + allocated_money + "/" + price + "</div>");
-                    row.append("<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#itemModal'>Edit</button>");
-                    row.append("<button type='button' class='btn btn-danger'>Delete</button>");
+                    row.append("<button type='button' class='btn btn-danger delete'>Delete</button>");
                 }
                 return result;
             };
 
+            $(".container").on("click", ".delete", function() {
+                console.log("In here");
+            });
 
-            $("button").click(function(event) {
+            $(".refresh").click(function(event) {
 
                 $.ajax({
                     data: {},

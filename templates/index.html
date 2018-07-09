@@ -25,11 +25,11 @@
         <div class="row price-information">
             <div class="col-md-12">
                 <div class="row">
-                    <h3>Available Budget: ${{ available }}</h3>
+                    <h3>Available Budget: $<span id="available">{{ available }}</span></h3>
                 </div>
                 <div class="row">
                     <p>
-                        The Available Budget is {{ percentage }}% from your overall money - <a href="#" data-toggle="modal" data-target="#infoModal">Edit</a>
+                        The Available Budget is <span id="percent">{{ percentage }}</span>% from your overall money: $<span id="total">{{ total }}</span> - <a href="#" data-toggle="modal" data-target="#infoModal">Edit</a>
                     </p>
                 </div>
             </div>
@@ -37,7 +37,6 @@
 
         <!--Item List-->
         <div class="row">
-            <!--Item Name-->
             <div class="priority">Priority</div>
             <div class="col-5 name-col">Item Name</div>
             <div class="id">ID</div>
@@ -46,15 +45,31 @@
 
         <div class="container-fluid item-wrapper">
             {% for item in list %}
-                <div class="row">
+                <div class="row item">
                     <div class="priority">{{ item[2] }}</div>
                     <div class="col-5 name-col">{{ item[1] }}</div>
                     <div class="id">{{ item[0] }}</div>
                     <div class="price">{{ item[4] }}/{{ item[3] }}</div>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#itemModal">Edit</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
+                    <button type="button" class="btn btn-primary edit-item" data-toggle="modal" data-target="#itemModal">Edit</button>
+                    <button type="button" class="btn btn-danger delete">Delete</button>
                 </div>
             {% endfor %}
+        </div>
+
+        <!--Add Item Form-->
+        <div class="row add-input">
+            <div class="form-group priority">
+                <input type="text" class="form-control" id="priority">
+            </div>
+            <div class="form-group col-5 name-col">
+                <input type="text"  class="form-control" id="name" placeholder="Add Name">
+            </div>
+            <div class="id"><h6>N/A</h6></div>
+            <div class="form-group price">
+                <input type="text" class="form-control" id="price" placeholder="Add Price">
+            </div>
+            <button type="button" class="btn btn-primary" id="add">Add Item</button>
+
         </div>
 
         <!-- Info Modal -->
@@ -64,17 +79,31 @@
 
               <!-- Modal Header -->
               <div class="modal-header">
-                <h4 class="modal-title">Info Modal</h4>
+                <h4 class="modal-title">Money Information</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
 
               <!-- Modal body -->
               <div class="modal-body">
-                Modal body..
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                         <input class="form-check-input" type="radio" name="money" id="percentage" value="price"> Percentage
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                         <input class="form-check-input" type="radio" name="money" id="money" value="total"> Total
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label for="new">New Value:</label>
+                    <input type="text" class="form-control" id="new-money" placeholder="New Value">
+                </div>
               </div>
 
               <!-- Modal footer -->
               <div class="modal-footer">
+                <button type="button" class="btn btn-success apply-money" data-dismiss="modal">Apply</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
               </div>
 
@@ -89,17 +118,43 @@
 
               <!-- Modal Header -->
               <div class="modal-header">
-                <h4 class="modal-title">Item Modal</h4>
+                <h4 class="modal-title item-title">Item Name</h4>
+                <h4 class="item-id" style="display: none;">Item ID</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
 
               <!-- Modal body -->
               <div class="modal-body">
-                Modal body..
+                <h6>Select the attribute you want to edit:</h6>
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                         <input class="form-check-input" type="radio" name="category" id="inlineRadio1" value="name"> Name
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                         <input class="form-check-input" type="radio" name="category" id="inlineRadio2" value="priority"> Priority
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                         <input class="form-check-input" type="radio" name="category" id="inlineRadio3" value="price"> Price
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                         <input class="form-check-input" type="radio" name="category" id="inlineRadio4" value="money"> Money
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label for="new">New Value:</label>
+                    <input type="text" class="form-control" id="new" placeholder="New Value">
+                </div>
               </div>
 
               <!-- Modal footer -->
               <div class="modal-footer">
+                <button type="button" class="btn btn-success apply" data-dismiss="modal">Apply</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
               </div>
 
@@ -110,44 +165,41 @@
     </div>
 
     <!--DRAFT-->
-    <h2 class="list">{{ list }}</h2>
-    <div class="test_list"></div>
 
     <!--Add-->
-    <form method="POST" id="add">
-        <input type="text" id="name" placeholder="Name">
-        <input type="text" id="priority" placeholder="Priority">
-        <input type="text" id="price" placeholder="Price">
-        <input type="text" id="money" placeholder="Money">
-        <button>Add</button>
-    </form>
+    <!--<form method="POST" id="add">-->
+        <!--<input type="text" id="name" placeholder="Name">-->
+        <!--<input type="text" id="priority" placeholder="Priority">-->
+        <!--<input type="text" id="price" placeholder="Price">-->
+        <!--<input type="text" id="money" placeholder="Money">-->
+        <!--<button>Add</button>-->
+    <!--</form>-->
 
     <!--Delete-->
-    <form method="POST" id="delete">
-        <input type="text" id="item_id" placeholder="Id">
-        <button>Delete</button>
-    </form>
+    <!--<form method="POST" id="delete">-->
+        <!--<input type="text" id="item_id" placeholder="Id">-->
+        <!--<button>Delete</button>-->
+    <!--</form>-->
 
-    <div class="result"></div>
+    <!--<div class="result"></div>-->
 
-    <!--Get-->
-    <form method="POST" id="get">
-        <input type="text" id="item_id_get" placeholder="Id">
-        <button>Get</button>
-    </form>
+    <!--&lt;!&ndash;Get&ndash;&gt;-->
+    <!--<form method="POST" id="get">-->
+        <!--<input type="text" id="item_id_get" placeholder="Id">-->
+        <!--<button>Get</button>-->
+    <!--</form>-->
 
-    <div class="get_result"></div>
+    <!--<div class="get_result"></div>-->
 
     <!--Update-->
-    <form method="POST" id="update">
-        <input type="text" id="item_id_update" placeholder="Id">
-        <input type="radio" name="edit" value="name">Name
-        <input type="radio" name="edit" value="priority">Priority
-        <input type="radio" name="edit" value="price">Price
-        <input type="radio" name="edit" value="money">Money
-        <input type="text" id="new" placeholder="New Value">
-        <button>Update</button>
-    </form>
+    <!--<form method="POST" id="update">-->
+        <!--<input type="radio" name="edit" value="name">Name-->
+        <!--<input type="radio" name="edit" value="priority">Priority-->
+        <!--<input type="radio" name="edit" value="price">Price-->
+        <!--<input type="radio" name="edit" value="money">Money-->
+        <!--<input type="text" id="new" placeholder="New Value">-->
+        <!--<button>Update</button>-->
+    <!--</form>-->
 
     <div class="update_result"></div>
 

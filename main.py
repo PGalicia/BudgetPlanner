@@ -31,11 +31,6 @@ def add():
     # price - check that it's a float (maybe just use the way you enter money for the bank)
     # allocated_money - check that it's a float (maybe just use the way you enter money for the bank)
 
-    items = mysqlcommands.get_all_items()
-    print(items)
-    print(items[1][1])
-
-
     return jsonify({
         "message" : mysqlcommands.add_item(name, priority, price, money),
         "allItems" : mysqlcommands.get_all_items()
@@ -47,8 +42,6 @@ def add():
 def delete():
 
     id = request.form['id']
-
-    # Check if the ID exists
 
     return jsonify({
         "message" : mysqlcommands.delete_item(id),
@@ -72,6 +65,14 @@ def get():
         "item" : item,
     })
 
+
+# Display the right item modal
+@app.route("/modal/<id>", methods=['POST'])
+def modal(id):
+    return jsonify({
+        "id" : id,
+        "name" : mysqlcommands.get_item(id)[1]
+    })
 
 # Update the item
 @app.route("/edit/<category>" , methods=['POST'])
@@ -108,6 +109,30 @@ def edit(category):
     return jsonify({
         "message" : "FAIL",
         "allItems": mysqlcommands.get_all_items()
+    })
+
+
+@app.route("/update_money/<category>", methods=['POST'])
+def update_money(category):
+
+    newValue = request.form['value']
+
+    if category == "total":
+
+        jsoncommands.setJSON_total("./money.json", float(newValue))
+    else:
+        jsoncommands.setJSON_percentage("./money.json", float(newValue)/100)
+
+    myObj = jsoncommands.getJSON("./money.json")
+    total = "%.2f" % round(myObj['Total'], 2)
+    percentage = "%d" % round(myObj['Percentage'] * 100, 2)
+    available = "%.2f" % round(myObj['Total'] * myObj['Percentage'], 2)
+
+    return jsonify({
+        "budget" : available,
+        "percentage" : percentage,
+        "total" : total
+
     })
 
 
