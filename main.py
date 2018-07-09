@@ -8,7 +8,13 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     myObj = jsoncommands.getJSON("./money.json")
-    return render_template("index.html", list=mysqlcommands.get_all_items(), total=myObj['Total'], percentage=myObj['Percentage'])
+
+    total = "%.2f" % round(myObj['Total'], 2)
+    percentage = "%d" % round(myObj['Percentage'] * 100, 2)
+    available = "%.2f" % round(myObj['Total'] * myObj['Percentage'], 2)
+
+    return render_template("index.html", list=mysqlcommands.get_all_items(), total=total, percentage=percentage, available=available)
+    # return render_template("test.html", list=mysqlcommands.get_all_items(), total=total, percentage=percentage, available=available)
 
 
 # Add an item to the database
@@ -24,6 +30,11 @@ def add():
     # priority - check if it's an int and the length is just one
     # price - check that it's a float (maybe just use the way you enter money for the bank)
     # allocated_money - check that it's a float (maybe just use the way you enter money for the bank)
+
+    items = mysqlcommands.get_all_items()
+    print(items)
+    print(items[1][1])
+
 
     return jsonify({
         "message" : mysqlcommands.add_item(name, priority, price, money),
@@ -97,6 +108,13 @@ def edit(category):
     return jsonify({
         "message" : "FAIL",
         "allItems": mysqlcommands.get_all_items()
+    })
+
+
+@app.route("/test", methods=['POST'])
+def test():
+    return jsonify({
+        "items" : mysqlcommands.get_all_items()
     })
 
 if __name__ == "__main__":

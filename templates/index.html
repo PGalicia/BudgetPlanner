@@ -1,15 +1,117 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     <title>Budget Planner</title>
+
+    <!--Body Style-->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}" />
-</head>
-<body>
-    <h1 id="title">This is the index page</h1>
-    <h2 class="total">Total money : {{ total }}</h2>
-    <h2 class="percentage">Percentage : {{ percentage }}</h2>
+
+  </head>
+  <body>
+    <div class="container-fluid">
+        <!--Title-->
+        <div class="row title">
+            <h1>Budget Planner</h1>
+        </div>
+
+        <!--Price-->
+        <div class="row price-information">
+            <div class="col-md-12">
+                <div class="row">
+                    <h3>Available Budget: ${{ available }}</h3>
+                </div>
+                <div class="row">
+                    <p>
+                        The Available Budget is {{ percentage }}% from your overall money - <a href="#" data-toggle="modal" data-target="#infoModal">Edit</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!--Item List-->
+        <div class="row">
+            <!--Item Name-->
+            <div class="priority">Priority</div>
+            <div class="col-5 name-col">Item Name</div>
+            <div class="id">ID</div>
+            <div class="price">Progress</div>
+        </div>
+
+        <div class="container-fluid item-wrapper">
+            {% for item in list %}
+                <div class="row">
+                    <div class="priority">{{ item[2] }}</div>
+                    <div class="col-5 name-col">{{ item[1] }}</div>
+                    <div class="id">{{ item[0] }}</div>
+                    <div class="price">{{ item[4] }}/{{ item[3] }}</div>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#itemModal">Edit</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Info Modal -->
+        <div class="modal fade" id="infoModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Info Modal</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+
+              <!-- Modal body -->
+              <div class="modal-body">
+                Modal body..
+              </div>
+
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Item Modal -->
+        <div class="modal fade" id="itemModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Item Modal</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+
+              <!-- Modal body -->
+              <div class="modal-body">
+                Modal body..
+              </div>
+
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+    </div>
+
+    <!--DRAFT-->
     <h2 class="list">{{ list }}</h2>
+    <div class="test_list"></div>
 
     <!--Add-->
     <form method="POST" id="add">
@@ -55,7 +157,84 @@
     <!--</p>-->
     <!--<button>Press</button>-->
 
+    <!---------------------->
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
-</body>
+
+
+
+
+
+
+  </body>
 </html>
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+    <!--<meta charset="UTF-8">-->
+    <!--<title>Budget Planner</title>-->
+    <!--<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}" />-->
+<!--</head>-->
+<!--<body>-->
+    <!--<h1 id="title">This is the index page</h1>-->
+    <!--<h2 class="total">Total money : {{ total }}</h2>-->
+    <!--<h2 class="percentage">Percentage : {{ percentage }}</h2>-->
+    <!--<h2 class="list">{{ list }}</h2>-->
+
+    <!--&lt;!&ndash;Add&ndash;&gt;-->
+    <!--<form method="POST" id="add">-->
+        <!--<input type="text" id="name" placeholder="Name">-->
+        <!--<input type="text" id="priority" placeholder="Priority">-->
+        <!--<input type="text" id="price" placeholder="Price">-->
+        <!--<input type="text" id="money" placeholder="Money">-->
+        <!--<button>Add</button>-->
+    <!--</form>-->
+
+    <!--&lt;!&ndash;Delete&ndash;&gt;-->
+    <!--<form method="POST" id="delete">-->
+        <!--<input type="text" id="item_id" placeholder="Id">-->
+        <!--<button>Delete</button>-->
+    <!--</form>-->
+
+    <!--<div class="result"></div>-->
+
+    <!--&lt;!&ndash;Get&ndash;&gt;-->
+    <!--<form method="POST" id="get">-->
+        <!--<input type="text" id="item_id_get" placeholder="Id">-->
+        <!--<button>Get</button>-->
+    <!--</form>-->
+
+    <!--<div class="get_result"></div>-->
+
+    <!--&lt;!&ndash;Update&ndash;&gt;-->
+    <!--<form method="POST" id="update">-->
+        <!--<input type="text" id="item_id_update" placeholder="Id">-->
+        <!--<input type="radio" name="edit" value="name">Name-->
+        <!--<input type="radio" name="edit" value="priority">Priority-->
+        <!--<input type="radio" name="edit" value="price">Price-->
+        <!--<input type="radio" name="edit" value="money">Money-->
+        <!--<input type="text" id="new" placeholder="New Value">-->
+        <!--<button>Update</button>-->
+    <!--</form>-->
+
+    <!--<div class="update_result"></div>-->
+
+    <!--&lt;!&ndash;<p>&ndash;&gt;-->
+        <!--&lt;!&ndash;<input type="radio" name="gender" value="male">Male&ndash;&gt;-->
+        <!--&lt;!&ndash;<input type="radio" name="gender" value="female">Female&ndash;&gt;-->
+    <!--&lt;!&ndash;</p>&ndash;&gt;-->
+    <!--&lt;!&ndash;<button>Press</button>&ndash;&gt;-->
+
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+    <!--<script src="{{ url_for('static', filename='js/index.js') }}"></script>-->
+<!--</body>-->
+<!--</html>-->

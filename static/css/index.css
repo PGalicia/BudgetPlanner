@@ -1,3 +1,11 @@
-#title {
-    color: red;
+/* Restrict Minimum Page Width */
+body {
+    min-width: 710px;
 }
+
+/* Title CSS */
+/* Item CSS */
+.priority { width: 60px; }
+.name-col { width: 325px; }
+.id { width: 50px; }
+.price { width: 150px; }

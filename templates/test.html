@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+</head>
+<body>
+
+    <div class="display">{{ list }}</div>
+    <div class="container"></div>
+
+    <button>Refresh</button>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            $.fn.myFunction = function(list){
+                console.log(list);
+                var result = $(this);
+                for(var i = 0; i < list.length; i++) {
+
+                    console.log(list[i])
+                    var id = list[i][0];
+                    var name = list[i][1];
+                    var priority = list[i][2];
+                    var price = list[i][3];
+                    var allocated_money = list[i][4];
+
+
+                    result.append("<div class='row item'></div>");
+                    var row = $(".item").last();
+
+                    row.html("<div class='priority'>" + priority + "</div>");
+                    row.append("<div class='col-5 name-col'>" + name + "</div>");
+                    row.append("<div class='id'>" + id + "</div>");
+                    row.append("<div class='price'>" + allocated_money + "/" + price + "</div>");
+                    row.append("<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#itemModal'>Edit</button>");
+                    row.append("<button type='button' class='btn btn-danger'>Delete</button>");
+                }
+                return result;
+            };
+
+
+            $("button").click(function(event) {
+
+                $.ajax({
+                    data: {},
+                    type: "POST",
+                    url: "/test"
+                })
+                .done(function(data) {
+                    $(".display").text(data.items);
+                    $(".container").myFunction(data.items);
+                });
+            });
+
+        });
+
+
+    </script>
+</body>
+</html>
