@@ -23,8 +23,8 @@ def add():
 
     name = request.form['name']
     priority = request.form['priority']
-    price = request.form['price']
-    money = request.form['money'] # TASK: make sure that if it's empty then add a zero
+    price = request.form['price'].replace(",", "")
+    money = request.form['money']
 
     # Check if any of the data is valid
     # priority - check if it's an int and the length is just one
@@ -121,7 +121,7 @@ def update_money(category):
 
         jsoncommands.setJSON_total("./money.json", float(newValue))
     else:
-        jsoncommands.setJSON_percentage("./money.json", float(newValue)/100)
+        jsoncommands.setJSON_percentage("./money.json", float(newValue.replace(",", ""))/100)
 
     myObj = jsoncommands.getJSON("./money.json")
     total = "%.2f" % round(myObj['Total'], 2)
@@ -136,6 +136,7 @@ def update_money(category):
     })
 
 
+# REMOVE THIS WHEN PROJECT IS ALMOST DONE
 @app.route("/test", methods=['POST'])
 def test():
     return jsonify({
