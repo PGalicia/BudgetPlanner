@@ -74,6 +74,7 @@ def modal(id):
         "name" : mysqlcommands.get_item(id)[1]
     })
 
+
 # Update the item
 @app.route("/edit/<category>" , methods=['POST'])
 def edit(category):

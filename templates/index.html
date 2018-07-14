@@ -16,6 +16,10 @@
   </head>
   <body>
     <div class="container-fluid">
+
+        <!--TEST DIV - DELETE AFTER-->
+        <div>{{ list }}</div>
+
         <!--Title-->
         <div class="row title">
             <h1>Budget Planner</h1>
@@ -39,7 +43,7 @@
         <div class="row">
             <div class="priority">Priority</div>
             <div class="col-5 name-col">Item Name</div>
-            <div class="id">ID</div>
+            <div class="id d-none">ID</div>
             <div class="price">Progress</div>
         </div>
 
@@ -49,7 +53,7 @@
                 <div class="row item">
                     <div class="priority">{{ item[2] }}</div>
                     <div class="col-5 name-col">{{ item[1] }}</div>
-                    <div class="id">{{ item[0] }}</div>
+                    <div class="id d-none">{{ item[0] }}</div>
                     <div class="price">{{ item[4] }}/{{ item[3] }}</div>
                     <button type="button" class="btn btn-primary edit-item" data-toggle="modal" data-target="#itemModal">Edit</button>
                     <button type="button" class="btn btn-danger delete">Delete</button>
@@ -65,7 +69,7 @@
             <div class="form-group col-5 name-col">
                 <input type="text"  class="form-control" id="name" placeholder="Add Name" maxlength="50">
             </div>
-            <div class="id"><h6>N/A</h6></div>
+            <div class="id d-none"></div>
             <div class="form-group price">
                 <!--<input type="text" id="price">-->
                 <input type="text" class="form-control" id="price" placeholder="Add Price">

@@ -20,7 +20,7 @@ $(document).ready(function() {
 
             row.html("<div class='priority'>" + priority + "</div>");
             row.append("<div class='col-5 name-col'>" + name + "</div>");
-            row.append("<div class='id'>" + id + "</div>");
+            row.append("<div class='id d-none'>" + id + "</div>");
             row.append("<div class='price'>" + allocated_money + "/" + price + "</div>");
             row.append("<button type='button' class='btn btn-primary edit-item' data-toggle='modal' data-target='#itemModal'>Edit</button>");
             row.append("<button type='button' class='btn btn-danger delete'>Delete</button>");

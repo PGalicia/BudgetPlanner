@@ -12,7 +12,7 @@ def get_all_items():
 
     try:
         with connection.cursor() as cursor:
-            sql = "SELECT * FROM budget.item;"
+            sql = "SELECT * FROM item ORDER BY priority DESC, price;"
             try:
                 cursor.execute(sql)
                 result = cursor.fetchall()
