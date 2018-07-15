@@ -33,6 +33,11 @@ def add():
     isRight = mysqlcommands.add_item(name, priority, price, money)
     message = constants.ADD_ITEM_SUCCESS_MESSAGE if isRight else constants.ADD_ITEM_FAILURE_MESSAGE
 
+    myObj = jsoncommands.getJSON("./money.json")
+
+    utilities.money_allocation(mysqlcommands.get_all_items(), myObj['Total'] * myObj['Percentage'],
+                               utilities.priority_count())
+
     return jsonify({
         "color" : isRight,
         "message" : message,
@@ -46,8 +51,17 @@ def delete():
 
     id = request.form['id']
 
+    isRight = mysqlcommands.delete_item(id)
+    message = constants.DELETE_ITEM_SUCCESS_MESSAGE if isRight else constants.DELETE_ITEM_FAILURE_MESSAGE
+
+    myObj = jsoncommands.getJSON("./money.json")
+
+    utilities.money_allocation(mysqlcommands.get_all_items(), myObj['Total'] * myObj['Percentage'],
+                               utilities.priority_count())
+
     return jsonify({
-        "message" : mysqlcommands.delete_item(id),
+        "color" : isRight,
+        "message" : message,
         "allItems" : mysqlcommands.get_all_items()
     })
 
@@ -85,35 +99,48 @@ def edit(category):
     id = request.form['id']
     newValue = request.form['value']
 
-    # Check that the ID exists
-    # Check if the newValue is valid
+    myObj = jsoncommands.getJSON("./money.json")
+
+    utilities.money_allocation(mysqlcommands.get_all_items(), myObj['Total'] * myObj['Percentage'],
+                               utilities.priority_count())
 
     if category == "name":
+        isRight = mysqlcommands.edit_item_name(id, newValue)
+        message = constants.UPDATE_ITEM_NAME_SUCCESS_MESSAGE if isRight else constants.UPDATE_ITEM_NAME_FAILURE_MESSAGE
         return jsonify({
-            "message" : mysqlcommands.edit_item_name(id, newValue),
+            "color" : isRight,
+            "message" : message,
             "allItems": mysqlcommands.get_all_items()
         })
     elif category == "priority":
+        isRight = mysqlcommands.edit_item_priority(id, newValue)
+        message = constants.UPDATE_ITEM_PRIORITY_SUCCESS_MESSAGE if isRight else constants.UPDATE_ITEM_PRIORITY_FAILURE_MESSAGE
         return jsonify({
-            "message" : mysqlcommands.edit_item_priority(id, newValue),
+            "color" : isRight,
+            "message" : message,
             "allItems": mysqlcommands.get_all_items()
         })
     elif category == "price":
+        isRight = mysqlcommands.edit_item_price(id, newValue)
+        message = constants.UPDATE_ITEM_PRICE_SUCCESS_MESSAGE if isRight else constants.UPDATE_ITEM_PRICE_FAILURE_MESSAGE
         return jsonify({
-            "message" : mysqlcommands.edit_item_price(id, newValue),
+            "color" : isRight,
+            "message" : message,
             "allItems": mysqlcommands.get_all_items()
         })
+    # OBSOLETE?
     elif category == "money":
         return jsonify({
             "message" : mysqlcommands.edit_item_money(id, newValue),
             "allItems": mysqlcommands.get_all_items()
         })
 
-    # Error Case (Need Fixing)
+    # Error Case (Need Fixing) -- OBSOLETE?
     return jsonify({
         "message" : "FAIL",
         "allItems": mysqlcommands.get_all_items()
     })
+
 
 # Update the money information
 @app.route("/update_money/<category>", methods=['POST'])
@@ -122,10 +149,11 @@ def update_money(category):
     newValue = request.form['value']
 
     if category == "total":
-
-        jsoncommands.setJSON_total("./money.json", float(newValue))
+        isRight = jsoncommands.setJSON_total("./money.json", float(newValue))
+        message = constants.UPDATE_PRICE_TOTAL_SUCCESS_MESSAGE if isRight else constants.UPDATE_PRICE_TOTAL_FAILURE_MESSAGE
     else:
-        jsoncommands.setJSON_percentage("./money.json", float(newValue.replace(",", ""))/100)
+        isRight = jsoncommands.setJSON_percentage("./money.json", float(newValue.replace(",", ""))/100)
+        message = constants.UPDATE_PRICE_PERCENTAGE_SUCCESS_MESSAGE if isRight else constants.UPDATE_PRICE_PERCENTAGE_FAILURE_MESSAGE
 
     myObj = jsoncommands.getJSON("./money.json")
     total = "%.2f" % round(myObj['Total'], 2)
@@ -136,6 +164,8 @@ def update_money(category):
                                utilities.priority_count())
 
     return jsonify({
+        "color" : isRight,
+        "message" : message,
         "budget" : available,
         "percentage" : percentage,
         "total" : total,

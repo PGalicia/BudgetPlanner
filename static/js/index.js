@@ -80,7 +80,7 @@ $(document).ready(function() {
     // Close Alert Box
     $(".alert").on("click", ".close", function() {
 
-        // Hide item on press (possibly handle toggle)
+        $(".alert-information").hide();
 
     });
 
@@ -98,19 +98,35 @@ $(document).ready(function() {
 
         // Checks if the user inputs a correct item priority
         if(isEmpty(priority)) {
-            alert("Input a valid priority number (0 - 9)");
+            updateAlertBoxColor(false);
+            // Update the message
+            $(".alert-information span").text("Input a valid priority number (0 - 9)");
+
+            // Display the alert box
+            $(".alert-information").show();
+
             return;
         }
 
         // Checks if the user inputs a correct item name
         if(isEmpty(name)) {
-            alert("Please enter the item name")
+            updateAlertBoxColor(false);
+            // Update the message
+            $(".alert-information span").text("Please enter an item name");
+
+            // Display the alert box
+            $(".alert-information").show();
             return;
         }
 
         // Checks if the user inputs a correct item name
         if(isEmpty(price)) {
-            alert("Please input the item price");
+            updateAlertBoxColor(false);
+            // Update the message
+            $(".alert-information span").text("Please input the item price");
+
+            // Display the alert box
+            $(".alert-information").show();
             return;
         }
 
@@ -131,7 +147,9 @@ $(document).ready(function() {
             $(".item-wrapper").updateItemList(data.allItems);
             updateAlertBoxColor(data.color);
             $(".alert-information span").text(data.message);
-//                $(".result").text(data.message);
+
+            // Display the alert box
+            $(".alert-information").show();
         });
 
     });
@@ -145,10 +163,12 @@ $(document).ready(function() {
             url : "/delete"
         })
         .done(function(data) {
-            if (data.message) {
-                $(".item-wrapper").updateItemList(data.allItems);
-//                $(".result").text(data.message);
-            }
+            $(".item-wrapper").updateItemList(data.allItems);
+            updateAlertBoxColor(data.color);
+            $(".alert-information span").text(data.message);
+
+            // Display the alert box
+            $(".alert-information").show();
         });
     });
 
@@ -194,7 +214,11 @@ $(document).ready(function() {
 
         // Check if any of the radio button is checked
         if(!isChecked("category")) {
-            alert("Please select which attribute you would like to edit");
+            updateAlertBoxColor(false);
+            $(".alert-information span").text("Please select which attribute you would like to edit");
+
+            // Display the alert box
+            $(".alert-information").show();
             return;
         }
 
@@ -203,7 +227,11 @@ $(document).ready(function() {
 
         // Check if the value is empty
         if(isEmpty(value)) {
-            alert("Please input the new value");
+            updateAlertBoxColor(false);
+            $(".alert-information span").text("Please input the new value");
+
+            // Display the alert box
+            $(".alert-information").show();
             return;
         }
 
@@ -216,8 +244,12 @@ $(document).ready(function() {
             url : "/edit/" + category
         })
         .done(function(data) {
-//            $(".update_result").text(data.message);
             $(".item-wrapper").updateItemList(data.allItems);
+            updateAlertBoxColor(data.color);
+            $(".alert-information span").text(data.message);
+
+            // Display the alert box
+            $(".alert-information").show();
         });
     });
 
@@ -246,7 +278,11 @@ $(document).ready(function() {
         console.log(category);
         // Check if any of the radio button is checked
         if(!isChecked("money")) {
-            alert("Please select which attribute you would like to edit");
+            updateAlertBoxColor(false);
+            $(".alert-information span").text("Please select which attribute you would like to edit");
+
+            // Display the alert box
+            $(".alert-information").show();
             return;
         }
 
@@ -255,7 +291,11 @@ $(document).ready(function() {
 
         // Check if the value is empty
         if(isEmpty(value)) {
-            alert("Please input the new value");
+            updateAlertBoxColor(false);
+            $(".alert-information span").text("Please input the new value");
+
+            // Display the alert box
+            $(".alert-information").show();
             return;
         }
 
@@ -270,6 +310,11 @@ $(document).ready(function() {
             $("#percent").text(data.percentage);
             $("#total").text(data.total);
             $(".item-wrapper").updateItemList(data.allItems);
+            updateAlertBoxColor(data.color);
+            $(".alert-information span").text(data.message);
+
+            // Display the alert box
+            $(".alert-information").show();
         });
     });
 
