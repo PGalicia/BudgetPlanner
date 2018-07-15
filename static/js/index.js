@@ -63,6 +63,27 @@ $(document).ready(function() {
         $("#new-percentage").addClass("d-none");
     }
 
+    // Reset Alert Box
+    function updateAlertBoxColor(color) {
+        // Reset alert box color
+        if($(".alert").hasClass("alert-success")) { $(".alert").removeClass("alert-success") };
+        if($(".alert").hasClass("alert-danger")) { $(".alert").removeClass("alert-danger") };
+
+        // Add the right alert box color
+        if(color) {
+            $(".alert").addClass("alert-success");
+        } else {
+            $(".alert").addClass("alert-danger");
+        }
+    }
+
+    // Close Alert Box
+    $(".alert").on("click", ".close", function() {
+
+        // Hide item on press (possibly handle toggle)
+
+    });
+
     // Ensures that users can only input valid float
     $('#price').maskMoney();
     $('#new-price').maskMoney();
@@ -107,10 +128,10 @@ $(document).ready(function() {
             url :  "/add"
         })
         .done(function(data) {
-            if (data.message) {
-                $(".item-wrapper").updateItemList(data.allItems);
+            $(".item-wrapper").updateItemList(data.allItems);
+            updateAlertBoxColor(data.color);
+            $(".alert-information span").text(data.message);
 //                $(".result").text(data.message);
-            }
         });
 
     });
@@ -248,6 +269,7 @@ $(document).ready(function() {
             $("#available").text(data.budget);
             $("#percent").text(data.percentage);
             $("#total").text(data.total);
+            $(".item-wrapper").updateItemList(data.allItems);
         });
     });
 

@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, jsonify
 import mysqlcommands
 import jsoncommands
+import utilities
+import constants
 
 app = Flask(__name__)
 
@@ -12,6 +14,8 @@ def index():
     total = "%.2f" % round(myObj['Total'], 2)
     percentage = "%d" % round(myObj['Percentage'] * 100, 2)
     available = "%.2f" % round(myObj['Total'] * myObj['Percentage'], 2)
+
+    utilities.money_allocation(mysqlcommands.get_all_items(), myObj['Total'] * myObj['Percentage'], utilities.priority_count())
 
     return render_template("index.html", list=mysqlcommands.get_all_items(), total=total, percentage=percentage, available=available)
     # return render_template("test.html", list=mysqlcommands.get_all_items(), total=total, percentage=percentage, available=available)
@@ -26,13 +30,12 @@ def add():
     price = request.form['price'].replace(",", "")
     money = request.form['money']
 
-    # Check if any of the data is valid
-    # priority - check if it's an int and the length is just one
-    # price - check that it's a float (maybe just use the way you enter money for the bank)
-    # allocated_money - check that it's a float (maybe just use the way you enter money for the bank)
+    isRight = mysqlcommands.add_item(name, priority, price, money)
+    message = constants.ADD_ITEM_SUCCESS_MESSAGE if isRight else constants.ADD_ITEM_FAILURE_MESSAGE
 
     return jsonify({
-        "message" : mysqlcommands.add_item(name, priority, price, money),
+        "color" : isRight,
+        "message" : message,
         "allItems" : mysqlcommands.get_all_items()
     })
 
@@ -49,7 +52,7 @@ def delete():
     })
 
 
-# Get the item from the database
+# Get the item from the database -- OBSOLETE?
 @app.route("/item", methods=['POST'])
 def get():
     id = request.form['id']
@@ -112,7 +115,7 @@ def edit(category):
         "allItems": mysqlcommands.get_all_items()
     })
 
-
+# Update the money information
 @app.route("/update_money/<category>", methods=['POST'])
 def update_money(category):
 
@@ -129,10 +132,14 @@ def update_money(category):
     percentage = "%d" % round(myObj['Percentage'] * 100, 2)
     available = "%.2f" % round(myObj['Total'] * myObj['Percentage'], 2)
 
+    utilities.money_allocation(mysqlcommands.get_all_items(), myObj['Total'] * myObj['Percentage'],
+                               utilities.priority_count())
+
     return jsonify({
         "budget" : available,
         "percentage" : percentage,
-        "total" : total
+        "total" : total,
+        "allItems": mysqlcommands.get_all_items()
 
     })
 

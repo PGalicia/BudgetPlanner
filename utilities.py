@@ -1,6 +1,8 @@
 import pymysql
 import mysqlcommands
 
+
+# Move this in mysqlcommands.py
 # Create a function that returns the count for each priority present in the table
 def priority_count():
     connection = pymysql.connect(
@@ -17,6 +19,7 @@ def priority_count():
                 cursor.execute(sql)
                 result = cursor.fetchall()
 
+            # Handle exception well (ie when server is unavailable)
             # TASK: From current tests this code is unreachable, possibly just delete it
             except:
                 print("Oops! Something wrong")
@@ -81,21 +84,6 @@ def money_allocation(item_list, budget, priority_count):
     return "%.2f" % round(money, 2)
 
 
-print(mysqlcommands.get_all_items())
-print("Leftover: " + str(money_allocation(mysqlcommands.get_all_items(), 2.00, priority_count())))
-print(mysqlcommands.get_all_items())
-
-'''
-    Money allocation
-        Users budget will be allocated to the items. The allocation will
-        prioritize items with higher priority. If there are items with similar priority,
-        the money would be split up for those items.
-
-        When the first program is run, get all the items and sort them from highest to lowest
-        priority. This allocation process will be redone every time an edit occurs with the items.
-            - Add an item
-            - Edit item's priority
-            - Delete an item
-            - Change the percentage (will change the budget)
-            - Change the total (will change the budget)
-'''
+# print(mysqlcommands.get_all_items())
+# print("Leftover: " + str(money_allocation(mysqlcommands.get_all_items(), 2.00, priority_count())))
+# print(mysqlcommands.get_all_items())

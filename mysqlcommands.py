@@ -19,6 +19,7 @@ def get_all_items():
 
             # TASK: From current tests this code is unreachable, possibly just delete it
             except:
+                # Make it so that when the users can't access server it returns a message that can be used in the alert box
                 print("Oops! Something wrong")
 
         connection.commit()
@@ -51,6 +52,7 @@ def get_item(id):
 
             # TASK: From current tests this code is unreachable, possibly just delete it
             except:
+                # Make it so that when the users can't access server it returns a message that can be used in the alert box
                 print("Oops! Something wrong")
 
         connection.commit()
@@ -78,13 +80,13 @@ def add_item(name, priority, price, money=0.00):
                 cursor.execute(sql, (name, priority, price, money))
 
             except:
-                return "Data was not be able to add"
+                return False
 
         connection.commit()
 
     finally:
         connection.close()
-        return "Data successfully added"
+        return True
 
 
 # Remove Item Object
@@ -103,13 +105,13 @@ def delete_item(id):
             try:
                 cursor.execute(sql, (id,))
             except:
-                return "Item was not successfully deleted"
+                return False
 
         connection.commit()
 
     finally:
         connection.close()
-        return "Item successfully deleted"
+        return True
 
 
 # Edit Item Object
@@ -127,13 +129,13 @@ def edit_item_name(id, name):
             try:
                 cursor.execute(sql, (name, id))
             except:
-                return "Name was not successfully changed"
+                return False
 
         connection.commit()
 
     finally:
         connection.close()
-        return "Name was successfully changed"
+        return True
 
 
 def edit_item_priority(id, priority):
@@ -150,13 +152,13 @@ def edit_item_priority(id, priority):
             try:
                 cursor.execute(sql, (priority, id))
             except:
-                return "Priority was not successfully updated"
+                return False
 
         connection.commit()
 
     finally:
         connection.close()
-        return "Priority was successfully changed"
+        return True
 
 
 def edit_item_price(id, price):
@@ -173,13 +175,13 @@ def edit_item_price(id, price):
             try:
                 cursor.execute(sql, (price, id))
             except:
-                return "Price was not successfully updated"
+                return False
 
         connection.commit()
 
     finally:
         connection.close()
-        return "Price was successfully changed"
+        return True
 
 
 def edit_item_money(id, money):
@@ -196,10 +198,10 @@ def edit_item_money(id, money):
             try:
                 cursor.execute(sql, (money, id))
             except:
-                return "Money was not successfully updated"
+                return False
 
         connection.commit()
 
     finally:
         connection.close()
-        return "Money was successfully changed"
+        return True
