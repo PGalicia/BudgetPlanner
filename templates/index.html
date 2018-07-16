@@ -40,7 +40,11 @@
         <div class="row alert-information">
             <div class="alert alert-success alert-dismissible">
               <button type="button" class="close">&times;</button>
-                <span>Data Successfully Loaded</span>
+                {% if list|length < 1 %}
+                    <span>There's no data</span>
+                {% else %}
+                    <span>Data Successfully Loaded</span>
+                {% endif %}
             </div>
         </div>
 
@@ -83,7 +87,6 @@
 
         </div>
 
-        <!--FOR BOTH MODAL, ADD ALERT BOX-->
         <!-- Price Info Modal -->
         <div class="modal fade" id="infoModal">
           <div class="modal-dialog">
@@ -186,10 +189,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 
-
-
-
-
-
+  
   </body>
 </html>

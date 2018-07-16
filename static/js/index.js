@@ -1,8 +1,9 @@
 $(document).ready(function() {
 
-    // Updates the list -- Change Name
+    // Update the item list
     $.fn.updateItemList = function(list){
 
+        // Clear the content
         $(this).empty();
 
         var result = $(this);
@@ -14,7 +15,7 @@ $(document).ready(function() {
             var price = list[i][3];
             var allocated_money = list[i][4];
 
-
+            // Add each item
             result.append("<div class='row item'></div>");
             var row = $(".item").last();
 
@@ -29,20 +30,10 @@ $(document).ready(function() {
         return result;
     };
 
-    // Check if a string is empty -- OBSOLETE?
+    // Check if a string is empty
     function isEmpty(value) {
         return (value == "") ? true : false;
     };
-
-    // Checks if the length of the value is at or below the 'limit' -- OBSOLETE?
-    function isCorrectLength(value, limit) {
-        return (value.length <= limit) ? true : false;
-    };
-
-    // Checks if the value equates to a digit number (0-9) -- OBSOLETE?
-    function isANumber(value) {
-        return !(isNaN(value));
-    }
 
     // Checks if any of the radio button is pressed
     function isChecked(name) {
@@ -50,7 +41,7 @@ $(document).ready(function() {
     };
 
     // Reset the modal functionality
-    function reset() {
+    function resetModal() {
         $(".label-priority").addClass("d-none");
         $("#new-priority").addClass("d-none");
         $(".label-price").addClass("d-none");
@@ -96,9 +87,11 @@ $(document).ready(function() {
         var priority = $("#priority").val();
         var price = $("#price").val();
 
-        // Checks if the user inputs a correct item priority
+        // Checks if the user inputs a valid item priority
         if(isEmpty(priority)) {
+            // Change the alert box to RED
             updateAlertBoxColor(false);
+
             // Update the message
             $(".alert-information span").text("Input a valid priority number (0 - 9)");
 
@@ -108,29 +101,33 @@ $(document).ready(function() {
             return;
         }
 
-        // Checks if the user inputs a correct item name
+        // Checks if the user inputs a valid item name
         if(isEmpty(name)) {
+            // Change the alert box to RED
             updateAlertBoxColor(false);
+
             // Update the message
             $(".alert-information span").text("Please enter an item name");
 
             // Display the alert box
             $(".alert-information").show();
+
             return;
         }
 
-        // Checks if the user inputs a correct item name
+        // Checks if the user inputs a valid item price
         if(isEmpty(price)) {
+            // Change the alert box to RED
             updateAlertBoxColor(false);
+
             // Update the message
             $(".alert-information span").text("Please input the item price");
 
             // Display the alert box
             $(".alert-information").show();
+
             return;
         }
-
-        // CAN ADD ALERT BOX FUNCTIONALITY HERE
 
         // If there's no error, the information given will be stored in the server
         $.ajax({
@@ -144,8 +141,13 @@ $(document).ready(function() {
             url :  "/add"
         })
         .done(function(data) {
+            // Update the item list
             $(".item-wrapper").updateItemList(data.allItems);
+
+            // Change the alert box to based on the status of the action - success = green | failure = red
             updateAlertBoxColor(data.color);
+
+            // Set the status message
             $(".alert-information span").text(data.message);
 
             // Display the alert box
@@ -163,8 +165,13 @@ $(document).ready(function() {
             url : "/delete"
         })
         .done(function(data) {
+            // Update the item list
             $(".item-wrapper").updateItemList(data.allItems);
+
+            // Change the alert box to based on the status of the action - success = green | failure = red
             updateAlertBoxColor(data.color);
+
+            // Set the status message
             $(".alert-information span").text(data.message);
 
             // Display the alert box
@@ -181,7 +188,10 @@ $(document).ready(function() {
             url : "/modal/" + id
         })
         .done(function(data) {
+            // Set the modal name to the item name
             $(".item-title").text(data.name);
+
+            // Set the modal id to the item id
             $(".item-id").text(data.id);
         });
     });
@@ -189,17 +199,18 @@ $(document).ready(function() {
     // Category - Open the right input field for the selected radio button
     $("input[name='category']").change(function () {
 
+        // Reset each item modal and display the correct input field
         var category = $(this).val();
         if(category === "name") {
-            reset();
+            resetModal();
             $(".label-name").removeClass("d-none");
             $("#new-name").removeClass("d-none");
         } else if (category === "priority") {
-            reset();
+            resetModal();
             $(".label-priority").removeClass("d-none");
             $("#new-priority").removeClass("d-none");
         } else if (category === "price") {
-            reset();
+            resetModal();
             $(".label-price").removeClass("d-none");
             $("#new-price").removeClass("d-none");
         }
@@ -214,7 +225,10 @@ $(document).ready(function() {
 
         // Check if any of the radio button is checked
         if(!isChecked("category")) {
+            // Change the alert box to RED
             updateAlertBoxColor(false);
+
+            // Update the message
             $(".alert-information span").text("Please select which attribute you would like to edit");
 
             // Display the alert box
@@ -227,7 +241,10 @@ $(document).ready(function() {
 
         // Check if the value is empty
         if(isEmpty(value)) {
+            // Change the alert box to RED
             updateAlertBoxColor(false);
+
+            // Update the message
             $(".alert-information span").text("Please input the new value");
 
             // Display the alert box
@@ -244,8 +261,13 @@ $(document).ready(function() {
             url : "/edit/" + category
         })
         .done(function(data) {
+            // Update the item list
             $(".item-wrapper").updateItemList(data.allItems);
+
+            // Change the alert box to based on the status of the action - success = green | failure = red
             updateAlertBoxColor(data.color);
+
+            // Set the status message
             $(".alert-information span").text(data.message);
 
             // Display the alert box
@@ -256,13 +278,14 @@ $(document).ready(function() {
     // Money - Open the right input field for the selected radio button
     $("input[name='money']").change(function () {
 
+        // Reset each item modal and display the correct input field
         var category = $(this).val();
         if(category === "total") {
-            reset();
+            resetModal();
             $(".label-total").removeClass("d-none");
             $("#new-total").removeClass("d-none");
         } else if (category === "percentage") {
-            reset();
+            resetModal();
             $(".label-percentage").removeClass("d-none");
             $("#new-percentage").removeClass("d-none");
         }
@@ -275,10 +298,12 @@ $(document).ready(function() {
         var category = $("input[name='money']:checked").val();
         var value = "";
 
-        console.log(category);
         // Check if any of the radio button is checked
         if(!isChecked("money")) {
+            // Change the alert box to RED
             updateAlertBoxColor(false);
+
+            // Update the message
             $(".alert-information span").text("Please select which attribute you would like to edit");
 
             // Display the alert box
@@ -306,11 +331,18 @@ $(document).ready(function() {
 
         })
         .done(function(data) {
+            // Update the price information
             $("#available").text(data.budget);
             $("#percent").text(data.percentage);
             $("#total").text(data.total);
+
+            // Update the item list
             $(".item-wrapper").updateItemList(data.allItems);
+
+            // Change the alert box to based on the status of the action - success = green | failure = red
             updateAlertBoxColor(data.color);
+
+            // Set the status message
             $(".alert-information span").text(data.message);
 
             // Display the alert box

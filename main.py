@@ -1,185 +1,220 @@
 from flask import Flask, render_template, request, jsonify
-import mysqlcommands
-import jsoncommands
-import utilities
-import constants
+from assets.utilities import jsoncommands, mysqlcommands, utilities
+from assets.other import constants
 
 app = Flask(__name__)
 
 
 @app.route("/")
 def index():
-    myObj = jsoncommands.getJSON("./money.json")
+    """
+        Return an HTML template that contains the list of items and the available money
+    """
+    # Get the contents from the JSON file
+    my_obj = jsoncommands.get_json(constants.JSON_FILE_PATH)
 
-    total = "%.2f" % round(myObj['Total'], 2)
-    percentage = "%d" % round(myObj['Percentage'] * 100, 2)
-    available = "%.2f" % round(myObj['Total'] * myObj['Percentage'], 2)
+    # Get all the items in the server
+    items = mysqlcommands.get_all_items()
 
-    utilities.money_allocation(mysqlcommands.get_all_items(), myObj['Total'] * myObj['Percentage'], utilities.priority_count())
+    # Format the floats
+    total = "%.2f" % round(my_obj['Total'], 2)
+    percentage = "%d" % round(my_obj['Percentage'] * 100, 2)
+    available = "%.2f" % round(my_obj['Total'] * my_obj['Percentage'], 2)
 
-    return render_template("index.html", list=mysqlcommands.get_all_items(), total=total, percentage=percentage, available=available)
-    # return render_template("test.html", list=mysqlcommands.get_all_items(), total=total, percentage=percentage, available=available)
+    # Only call this function if there is more than one item in the item list
+    if len(items) > 1:
+        utilities.money_allocation(items, my_obj['Total'] * my_obj['Percentage'], mysqlcommands.priority_count())
+
+    return render_template("index.html", list=mysqlcommands.get_all_items(), total=total, percentage=percentage,
+                           available=available)
 
 
-# Add an item to the database
 @app.route("/add", methods=["POST"])
-def add():
-
+def add() -> jsonify:
+    """
+        Adds a new item in the server and returns the updated list to the front-end
+    """
+    # Passed Items from Front-End
     name = request.form['name']
     priority = request.form['priority']
-    price = request.form['price'].replace(",", "")
+    price = request.form['price'].replace(",", "")  # To prevent string to float conversion
     money = request.form['money']
 
-    isRight = mysqlcommands.add_item(name, priority, price, money)
-    message = constants.ADD_ITEM_SUCCESS_MESSAGE if isRight else constants.ADD_ITEM_FAILURE_MESSAGE
+    # Adds item to the server and check the status of the addition
+    is_right = mysqlcommands.add_item(name, priority, price, money)
 
-    myObj = jsoncommands.getJSON("./money.json")
+    # Pass the status of the addition to this variable
+    message = constants.ADD_ITEM_SUCCESS_MESSAGE if is_right else constants.ADD_ITEM_FAILURE_MESSAGE
 
-    utilities.money_allocation(mysqlcommands.get_all_items(), myObj['Total'] * myObj['Percentage'],
-                               utilities.priority_count())
+    # Get the content from the JSON file
+    my_obj = jsoncommands.get_json(constants.JSON_FILE_PATH)
+
+    # Re-allocate the budget with the new added item
+    utilities.money_allocation(mysqlcommands.get_all_items(), my_obj['Total'] * my_obj['Percentage'],
+                               mysqlcommands.priority_count())
 
     return jsonify({
-        "color" : isRight,
-        "message" : message,
-        "allItems" : mysqlcommands.get_all_items()
+        "color": is_right,
+        "message": message,
+        "allItems": mysqlcommands.get_all_items()
     })
 
 
-# Remove an item from the database
 @app.route("/delete", methods=['POST'])
-def delete():
+def delete() -> jsonify:
+    """
+        Delete the specified item in the server and return the updated list to the front-end
+    """
+    # Passed Items from Front-End
+    item_id = request.form['id']
 
-    id = request.form['id']
+    # Get the contents from the JSON file
+    my_obj = jsoncommands.get_json(constants.JSON_FILE_PATH)
 
-    isRight = mysqlcommands.delete_item(id)
-    message = constants.DELETE_ITEM_SUCCESS_MESSAGE if isRight else constants.DELETE_ITEM_FAILURE_MESSAGE
+    # Get all the items in the server
+    items = mysqlcommands.get_all_items()
 
-    myObj = jsoncommands.getJSON("./money.json")
+    # Only call this function if there is more than one item in the item list
+    if len(items) > 1:
+        # Re-allocate the budget
+        utilities.money_allocation(items, my_obj['Total'] * my_obj['Percentage'],
+                                   mysqlcommands.priority_count())
 
-    utilities.money_allocation(mysqlcommands.get_all_items(), myObj['Total'] * myObj['Percentage'],
-                               utilities.priority_count())
+    # Delete the item in the server and check the status of the deletion
+    is_right = mysqlcommands.delete_item(item_id)
+
+    # Pass the status of the deletion to this variable
+    message = constants.DELETE_ITEM_SUCCESS_MESSAGE if is_right else constants.DELETE_ITEM_FAILURE_MESSAGE
 
     return jsonify({
-        "color" : isRight,
-        "message" : message,
-        "allItems" : mysqlcommands.get_all_items()
+        "color": is_right,
+        "message": message,
+        "allItems": mysqlcommands.get_all_items()
     })
 
 
-# Get the item from the database -- OBSOLETE?
-@app.route("/item", methods=['POST'])
-def get():
-    id = request.form['id']
-
-    item = mysqlcommands.get_item(id)
-
-    if len(item) == 0:
-        return jsonify({
-            "message" : "ID does not exist"
-        })
-
-    return jsonify({
-        "item" : item,
-    })
-
-
-# Display the right item modal
 @app.route("/modal/<id>", methods=['POST'])
-def modal(id):
+def modal(item_id):
+    """
+        Return the information of the specified 'item_id'.
+        This is so that users can open the correct modal item through AJAX
+    """
     return jsonify({
-        "id" : id,
-        "name" : mysqlcommands.get_item(id)[1]
+        "id": item_id,
+        "name": mysqlcommands.get_item(item_id)[1]
     })
 
 
-# Update the item
-@app.route("/edit/<category>" , methods=['POST'])
+@app.route("/edit/<category>", methods=['POST'])
 def edit(category):
+    """
+        Update the specified item 'category' and return the status and updated items to the front-end
+    """
+    # Passed Items from Front-End
+    item_id = request.form['id']
+    new_value = request.form['value']
 
-    id = request.form['id']
-    newValue = request.form['value']
+    # Get the contents from the JSON file
+    my_obj = jsoncommands.get_json(constants.JSON_FILE_PATH)
 
-    myObj = jsoncommands.getJSON("./money.json")
-
-    utilities.money_allocation(mysqlcommands.get_all_items(), myObj['Total'] * myObj['Percentage'],
-                               utilities.priority_count())
+    # Re-allocate the budget
+    utilities.money_allocation(mysqlcommands.get_all_items(), my_obj['Total'] * my_obj['Percentage'],
+                               mysqlcommands.priority_count())
 
     if category == "name":
-        isRight = mysqlcommands.edit_item_name(id, newValue)
-        message = constants.UPDATE_ITEM_NAME_SUCCESS_MESSAGE if isRight else constants.UPDATE_ITEM_NAME_FAILURE_MESSAGE
+        # Edit the item name in the server and check the status of the update
+        is_right = mysqlcommands.edit_item_name(item_id, new_value)
+
+        # Pass the status of the edit to this variable
+        message = constants.UPDATE_ITEM_NAME_SUCCESS_MESSAGE if is_right \
+            else constants.UPDATE_ITEM_NAME_FAILURE_MESSAGE
+
         return jsonify({
-            "color" : isRight,
-            "message" : message,
+            "color": is_right,
+            "message": message,
             "allItems": mysqlcommands.get_all_items()
         })
     elif category == "priority":
-        isRight = mysqlcommands.edit_item_priority(id, newValue)
-        message = constants.UPDATE_ITEM_PRIORITY_SUCCESS_MESSAGE if isRight else constants.UPDATE_ITEM_PRIORITY_FAILURE_MESSAGE
-        return jsonify({
-            "color" : isRight,
-            "message" : message,
-            "allItems": mysqlcommands.get_all_items()
-        })
-    elif category == "price":
-        isRight = mysqlcommands.edit_item_price(id, newValue)
-        message = constants.UPDATE_ITEM_PRICE_SUCCESS_MESSAGE if isRight else constants.UPDATE_ITEM_PRICE_FAILURE_MESSAGE
-        return jsonify({
-            "color" : isRight,
-            "message" : message,
-            "allItems": mysqlcommands.get_all_items()
-        })
-    # OBSOLETE?
-    elif category == "money":
-        return jsonify({
-            "message" : mysqlcommands.edit_item_money(id, newValue),
-            "allItems": mysqlcommands.get_all_items()
-        })
+        # Edit the item priority in the server and check the status of the update
+        is_right = mysqlcommands.edit_item_priority(item_id, new_value)
 
-    # Error Case (Need Fixing) -- OBSOLETE?
-    return jsonify({
-        "message" : "FAIL",
-        "allItems": mysqlcommands.get_all_items()
-    })
+        # Pass the status of the edit to this variable
+        message = constants.UPDATE_ITEM_PRIORITY_SUCCESS_MESSAGE if is_right \
+            else constants.UPDATE_ITEM_PRIORITY_FAILURE_MESSAGE
+
+        return jsonify({
+            "color": is_right,
+            "message": message,
+            "allItems": mysqlcommands.get_all_items()
+        })
+    # category == "price"
+    else:
+        # Edit the item price in the server and check the status of the update
+        is_right = mysqlcommands.edit_item_price(item_id, new_value)
+
+        # Pass the status of the edit to this variable
+        message = constants.UPDATE_ITEM_PRICE_SUCCESS_MESSAGE if is_right \
+            else constants.UPDATE_ITEM_PRICE_FAILURE_MESSAGE
+
+        return jsonify({
+            "color": is_right,
+            "message": message,
+            "allItems": mysqlcommands.get_all_items()
+        })
 
 
 # Update the money information
 @app.route("/update_money/<category>", methods=['POST'])
 def update_money(category):
-
-    newValue = request.form['value']
-
+    """
+        Update the specified information 'category' and return the status and updated items to the front-end
+    """
     if category == "total":
-        isRight = jsoncommands.setJSON_total("./money.json", float(newValue))
-        message = constants.UPDATE_PRICE_TOTAL_SUCCESS_MESSAGE if isRight else constants.UPDATE_PRICE_TOTAL_FAILURE_MESSAGE
+        # The new value of the 'total' value
+        new_value = request.form['value'].replace(",", "")  # To prevent string to float conversion
+
+        # Edit the information price in the server and check the status of the update
+        is_right = jsoncommands.set_json_total(constants.JSON_FILE_PATH, float(new_value))
+
+        # Pass the status of the edit to this variable
+        message = constants.UPDATE_PRICE_TOTAL_SUCCESS_MESSAGE if is_right \
+            else constants.UPDATE_PRICE_TOTAL_FAILURE_MESSAGE
     else:
-        isRight = jsoncommands.setJSON_percentage("./money.json", float(newValue.replace(",", ""))/100)
-        message = constants.UPDATE_PRICE_PERCENTAGE_SUCCESS_MESSAGE if isRight else constants.UPDATE_PRICE_PERCENTAGE_FAILURE_MESSAGE
+        # The new value of the 'percentage' value
+        new_value = request.form['value']
 
-    myObj = jsoncommands.getJSON("./money.json")
-    total = "%.2f" % round(myObj['Total'], 2)
-    percentage = "%d" % round(myObj['Percentage'] * 100, 2)
-    available = "%.2f" % round(myObj['Total'] * myObj['Percentage'], 2)
+        # Edit the information percentage in the server and check the status of the update
+        is_right = jsoncommands.set_json_percentage(constants.JSON_FILE_PATH, float(new_value.replace(",", "")) / 100)
 
-    utilities.money_allocation(mysqlcommands.get_all_items(), myObj['Total'] * myObj['Percentage'],
-                               utilities.priority_count())
+        # Pass the status of the edit to this variable
+        message = constants.UPDATE_PRICE_PERCENTAGE_SUCCESS_MESSAGE if is_right \
+            else constants.UPDATE_PRICE_PERCENTAGE_FAILURE_MESSAGE
+
+    # Get the contents from the JSON file
+    my_obj = jsoncommands.get_json(constants.JSON_FILE_PATH)
+
+    # Get all the items in the server
+    items = mysqlcommands.get_all_items()
+
+    # Format the floats
+    total = "%.2f" % round(my_obj['Total'], 2)
+    percentage = "%d" % round(my_obj['Percentage'] * 100, 2)
+    available = "%.2f" % round(my_obj['Total'] * my_obj['Percentage'], 2)
+
+    if len(items) > 1:
+        utilities.money_allocation(items, my_obj['Total'] * my_obj['Percentage'],
+                                   mysqlcommands.priority_count())
 
     return jsonify({
-        "color" : isRight,
-        "message" : message,
-        "budget" : available,
-        "percentage" : percentage,
-        "total" : total,
+        "color": is_right,
+        "message": message,
+        "budget": available,
+        "percentage": percentage,
+        "total": total,
         "allItems": mysqlcommands.get_all_items()
 
     })
 
-
-# REMOVE THIS WHEN PROJECT IS ALMOST DONE
-@app.route("/test", methods=['POST'])
-def test():
-    return jsonify({
-        "items" : mysqlcommands.get_all_items()
-    })
 
 if __name__ == "__main__":
     app.run(debug=True)

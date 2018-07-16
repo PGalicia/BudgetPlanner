@@ -1,3 +1,5 @@
+JSON_FILE_PATH = "./assets/other/money.json"
+
 ADD_ITEM_SUCCESS_MESSAGE = "Item is added successfully"
 ADD_ITEM_FAILURE_MESSAGE = "Item cannot be added"
 
