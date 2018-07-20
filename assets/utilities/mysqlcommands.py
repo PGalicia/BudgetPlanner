@@ -23,7 +23,7 @@ def get_item(item_id) -> tuple:
 
     try:
         with connection.cursor() as cursor:
-            sql = "SELECT * FROM budget.item WHERE id = %s;"
+            sql = "SELECT * FROM item WHERE id = %s;"
             cursor.execute(sql, (item_id,))
             result = cursor.fetchone()
 
@@ -69,7 +69,7 @@ def delete_item(item_id) -> bool:
 
     try:
         with connection.cursor() as cursor:
-            sql = "DELETE FROM budget.item WHERE id = %s"
+            sql = "DELETE FROM item WHERE id = %s"
             try:
                 cursor.execute(sql, (item_id,))
             except:
