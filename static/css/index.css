@@ -4,7 +4,51 @@ body {
 }
 
 /* Title CSS */
-/* Item CSS */
+.title {
+    padding: 10px 25px;
+    background-color: #98ceac;
+}
+
+.money-icon {
+    padding-top: 27px;
+    padding-left: 25px;
+    font-size: 75px;
+}
+
+/* Price Information */
+.price-information {
+    padding: 10px 25px;
+}
+
+span.money {
+    color: #747E63;
+}
+
+.price-information .extra-info {
+    color: #F3958B;
+}
+
+/* Items */
+.col-names,
+.item-wrapper,
+.add-input {
+    padding: 10px 25px;
+}
+
+.col-names div {
+    font-weight: bold;
+    color: #38332F;
+}
+
+.item div {
+    margin: 5px 0;
+}
+
+.item button {
+    margin: 5px 5px;
+}
+
+/* Item Input CSS */
 .priority { width: 60px; }
 .name-col { width: 325px; }
 .id { width: 50px; }

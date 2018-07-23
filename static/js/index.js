@@ -19,7 +19,7 @@ $(document).ready(function() {
             result.append("<div class='row item'></div>");
             var row = $(".item").last();
 
-            row.html("<div class='priority'>" + priority + "</div>");
+            row.html("<div class='priority text-center'>" + priority + "</div>");
             row.append("<div class='col-5 name-col'>" + name + "</div>");
             row.append("<div class='id d-none'>" + id + "</div>");
             row.append("<div class='price'>" + allocated_money + "/" + price + "</div>");
