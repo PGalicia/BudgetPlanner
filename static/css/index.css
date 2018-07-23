@@ -48,6 +48,12 @@ span.money {
     margin: 5px 5px;
 }
 
+.add-input button {
+    margin-left: 5px;
+    padding: 0 35px;
+    height: 38px;
+}
+
 /* Item Input CSS */
 .priority { width: 60px; }
 .name-col { width: 325px; }
