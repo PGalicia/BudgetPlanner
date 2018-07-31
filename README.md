@@ -18,25 +18,25 @@ As you can see, my spending money is $$$ which is 30% of the total ($$$). The sp
 
 Users can simply add an item by inputting a valid priority number, from 0 to 9, (9 being the highest priority), a name, and the price of the item. If there’s no error, the program will notify the user that the item is successfully added to the list via the alert box and will be added on the item list.
 
-[Insert Photo Here]
+<img align="left" width="100" height="100" src="assets/img/_github_readme/add_item.png">
 
 ### Delete an item:
 
 Item can be removed by pressing the item’s corresponding delete button. By performing the deletion process, the program will redo the allocation to reflect the new item list.
 
-[Insert Photo Here]
+<img align="left" width="100" height="100" src="assets/img/_github_readme/delete.png">
 
 ### Edit an item:
 
 User can press the Edit button to edit an item’s price, name, or priority. To do so, user must choose which attribute they want to edit and enter the correct value. If the inputted value is valid, it will be reflected in the program, reallocating the spending money if necessary.
 
-[Insert Photo Here]
+<img align="left" width="100" height="100" src="assets/img/_github_readme/edit_item.png">
 
 ### Edit money information:
 
 Similar to editing each items, users can also edit their total money and the percentage by pressing the edit button below the Spending Budget text. User will be prompt a modal where user can edit the information. Similar to above, if there are no error, the change will be reflected by the program.
 
-[Insert Photo Here]
+<img align="left" width="100" height="100" src="assets/img/_github_readme/edit_money.png">
 
 ## Built With
 
