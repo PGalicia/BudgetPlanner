@@ -18,7 +18,7 @@ As you can see, my spending money is $$$ which is 30% of the total ($$$). The sp
 
 Users can simply add an item by inputting a valid priority number, from 0 to 9, (9 being the highest priority), a name, and the price of the item. If there’s no error, the program will notify the user that the item is successfully added to the list via the alert box and will be added on the item list.
 
-<img align="left" width="100" height="100" src="assets/img/_github_readme/add_item.PNG">
+<img align="left" src="assets/img/_github_readme/add_item.PNG">
 
 ### Delete an item:
 
