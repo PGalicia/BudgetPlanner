@@ -24,19 +24,19 @@ Users can simply add an item by inputting a valid priority number, from 0 to 9, 
 
 Item can be removed by pressing the item’s corresponding delete button. By performing the deletion process, the program will redo the allocation to reflect the new item list.
 
-<img align="left" src="assets/img/_github_readme/delete.PNG">
+![](assets/img/_github_readme/delete.PNG)
 
 ### Edit an item:
 
 User can press the Edit button to edit an item’s price, name, or priority. To do so, user must choose which attribute they want to edit and enter the correct value. If the inputted value is valid, it will be reflected in the program, reallocating the spending money if necessary.
 
-<img align="left" src="assets/img/_github_readme/edit_item.PNG">
+![](assets/img/_github_readme/edit_item.PNG)
 
 ### Edit money information:
 
 Similar to editing each items, users can also edit their total money and the percentage by pressing the edit button below the Spending Budget text. User will be prompt a modal where user can edit the information. Similar to above, if there are no error, the change will be reflected by the program.
 
-<img align="left" src="assets/img/_github_readme/edit_money.PNG">
+![](assets/img/_github_readme/edit_money.PNG)
 
 ## Built With
 
