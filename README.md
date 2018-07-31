@@ -9,7 +9,7 @@ The program allows it users to list items that they want to save up for. The pro
 _Below is an example use of the program_
 
 <p align="center">
-  <img width="750" src="assets/img/_github_readme/home.png">
+  <img width="750" src="assets/img/_github_readme/index.png">
 </p>
 
 As you can see, my spending money is $$$ which is 30% of the total ($$$). The spending money will then be allocated to the items listed, prioritising the items with higher priority. As you can see, it completes the first 3 items which has priority #5 then goes down the list if there are leftover spending money.
