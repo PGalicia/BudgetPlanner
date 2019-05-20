@@ -1,0 +1,44 @@
+{
+  "name": "wisely",
+  "version": "2.0.0",
+  "description": "A web application that takes a percentage amount of your total money as your “spending money” and allocate it to the items you want to use the money on.",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --open --mode development",
+    "build": "webpack --mode production",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PGalicia/Wisely.git"
+  },
+  "keywords": [],
+  "author": "Patrick Galicia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PGalicia/Wisely/issues"
+  },
+  "homepage": "https://github.com/PGalicia/Wisely#readme",
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1",
+    "react-redux": "^6.0.0",
+    "redux": "^4.0.1",
+    "webpack": "^4.29.2",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.1.14"
+  },
+  "dependencies": {
+    "css-loader": "^2.1.0",
+    "html-react-parser": "^0.7.0",
+    "jest": "^24.5.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1"
+  }
+}
