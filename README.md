@@ -2,7 +2,14 @@
 
 A program that takes a percentage amount of your total money as your “spending money” and allocate it to the items you want to use the money on.
 
+_Note: I am currently working on a version 2 that design of this web app, which you can see [here](https://drive.google.com/open?id=1BQDNJLEtZZiBB2hCC3bDnlWoYTrFS94E)_
+
+Project Version:
+- v1: [view source code](https://www.dropbox.com/s/iug15sjhghfj5zg/v1.zip?dl=0)
+
 ## How It Works
+
+_Note: The instructions and images you will see below are currently based of v1_
 
 The program allows it users to list items that they want to save up for. The program takes in the users’ total money (ie the total money you have in your bank account), which then takes a percentage of it as your spending money. As the default, 30% of your total would be used but this can changed based on your preference.
 
