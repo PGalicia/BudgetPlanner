@@ -14,8 +14,13 @@ class ItemCard extends Component {
 
     // State
     this.state = {
-      isMoreMenuOnDisplay: false
+      isMoreMenuOnDisplay: false,
+      progressBarPercentage: 0,
+      progressBarWidth: 0
     };
+
+    // Constant
+    this.progressBarInterval = null;
 
     // Bindings
     this.toggleMoreIconButtonPress = this.toggleMoreIconButtonPress.bind(this);
@@ -25,6 +30,14 @@ class ItemCard extends Component {
   }
 
   componentWillMount() {
+    this.progressBarInterval = setInterval(() => {
+      this.setState({
+        progressBarWidth: Math.floor(
+          (this.state.progressBarPercentage / 100) * 412
+        ),
+        progressBarPercentage: this.state.progressBarPercentage + 1
+      });
+    }, 10);
     document.addEventListener(
       "mousedown",
       this.handleUserClickWhenMoreMenuIsDisplayed,
@@ -68,16 +81,19 @@ class ItemCard extends Component {
     // Determine the item percentage
     const progressBarPercentage = Math.floor((currentPrice / goalPrice) * 100);
 
+    // When the progressBarPercentage and progressBarWidth is the same as progress bar
+    // declared in the states, then clear interval
+    if (progressBarPercentage <= this.state.progressBarPercentage) {
+      clearInterval(this.progressBarInterval);
+    }
+
     // Determine which color to use for progress bar
     const progressBarColor = determineProgressBarColor(progressBarPercentage);
-
-    // Determine the width of progress bar
-    const progressBarWidth = (progressBarPercentage / 100) * 412;
 
     // Progress bar style
     const progressBarStyle = {
       backgroundColor: progressBarColor,
-      width: `${progressBarWidth}px`
+      width: `${this.state.progressBarWidth}px`
     };
 
     // Determine the color and text of priority
@@ -100,7 +116,9 @@ class ItemCard extends Component {
           <span className="price">{`$${currentPrice}/$${goalPrice}`}</span>
         </h4>
         <div className="progress-bar-container">
-          <h4 className="percentage">{`${progressBarPercentage}%`}</h4>
+          <h4 className="percentage">{`${
+            this.state.progressBarPercentage
+          }%`}</h4>
           <div className="goal-bar" />
           <div className="current-bar" style={progressBarStyle} />
         </div>

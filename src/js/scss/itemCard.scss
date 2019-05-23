@@ -69,6 +69,7 @@ $item-card-background-color: #ffffff;
     .current-bar {
       position: absolute;
       top: 0;
+      transition: width 0.4s ease;
     }
   }
 
