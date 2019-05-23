@@ -1,0 +1,20 @@
+@import "utils";
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+body {
+  margin: 0 auto;
+  box-sizing: border-box;
+  max-width: $max-body-width;
+  background-color: $grey-color;
+  font-family: "Karla", sans-serif;
+  font-size: 18px;
+}
