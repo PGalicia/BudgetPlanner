@@ -1,0 +1,12 @@
+@import "utils";
+
+.items-container {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-gap: 50px;
+  justify-content: center;
+
+  .sort-by {
+    grid-column: 1 / -1;
+  }
+}
