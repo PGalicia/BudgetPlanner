@@ -4,6 +4,13 @@ import { determineProgressBarColor } from "./../../utils/determineProgressBarCol
 import { determineItemPriorityColorAndText } from "./../../utils/determineItemPriorityColorAndText.js"; // Utils
 import ArrowIcon from "./../../../asset/arrow-icon.svg"; // Asset
 import MoreIcon from "./../../../asset/more-icon.svg"; // Asset
+import posed from "react-pose"; // Library
+
+// ItemCard - Posed
+const Item = posed.div({
+  open: { y: 0, opacity: 1 },
+  closed: { y: 20, opacity: 0 }
+});
 
 class ItemCard extends Component {
   constructor() {
@@ -30,6 +37,7 @@ class ItemCard extends Component {
   }
 
   componentWillMount() {
+    // Set Interval used for progress bar animation
     this.progressBarInterval = setInterval(() => {
       this.setState({
         progressBarWidth: Math.floor(
@@ -38,6 +46,7 @@ class ItemCard extends Component {
         progressBarPercentage: this.state.progressBarPercentage + 1
       });
     }, 10);
+
     document.addEventListener(
       "mousedown",
       this.handleUserClickWhenMoreMenuIsDisplayed,
@@ -103,7 +112,7 @@ class ItemCard extends Component {
     };
 
     return (
-      <div className="item-card">
+      <Item className="item-card">
         <h2 className="item-name">{name}</h2>
         <p className="item-description">{description}</p>
         <img
@@ -138,7 +147,7 @@ class ItemCard extends Component {
             <p className="extra-menu-link">Delete</p>
           </div>
         )}
-      </div>
+      </Item>
     );
   }
 }
