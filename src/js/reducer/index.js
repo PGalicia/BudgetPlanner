@@ -4,7 +4,9 @@
 import { ITEMS } from "./../constant/items.js"; // Constant
 
 const initialState = {
-    items: ITEMS
+    items: ITEMS,
+    totalMoney: 1417.48,
+    percentage: 25
 }
 
 const rootReducer = (state = initialState, action) => {

@@ -8,12 +8,16 @@ import posed from "react-pose"; // Library
 const ItemContainer = posed.section({
   open: {
     x: "0%",
-    delayChildren: 200,
     staggerChildren: 50
   },
-  closed: { x: "-100%", delay: 300 }
+  closed: {
+    delay: 300
+  }
 });
 
+/*
+    ItemContainer
+*/
 class ItemsContainer extends Component {
   constructor() {
     super();
@@ -38,7 +42,7 @@ class ItemsContainer extends Component {
   }
 
   handleSortByChoice(e, category) {
-    // After a couple of ms, items
+    // After a couple of ms, items will then again animate out
     setTimeout(() => {
       this.setState({
         isItemsContainerVisible: !this.state.isItemsContainerVisible,
@@ -53,33 +57,33 @@ class ItemsContainer extends Component {
   render() {
     return (
       <>
-        <div className="sort-by">
-          <span>Sort By: </span>
-          <button
-            className={
-              this.state.sortByChoice === "alphabetically"
-                ? "sort-by-button active"
-                : "sort-by-button"
-            }
-            onClick={e => this.handleSortByChoice(e, "alphabetically")}
-          >
-            Alphabetically
-          </button>
-          <button
-            className={
-              this.state.sortByChoice === "priority"
-                ? "sort-by-button active"
-                : "sort-by-button"
-            }
-            onClick={e => this.handleSortByChoice(e, "priority")}
-          >
-            Priority
-          </button>
-        </div>
         <ItemContainer
           className="items-container"
           pose={this.state.isItemsContainerVisible ? "open" : "closed"}
         >
+          <div className="sort-by">
+            <span>Sort By: </span>
+            <button
+              className={
+                this.state.sortByChoice === "alphabetically"
+                  ? "sort-by-button active"
+                  : "sort-by-button"
+              }
+              onClick={e => this.handleSortByChoice(e, "alphabetically")}
+            >
+              Alphabetically
+            </button>
+            <button
+              className={
+                this.state.sortByChoice === "priority"
+                  ? "sort-by-button active"
+                  : "sort-by-button"
+              }
+              onClick={e => this.handleSortByChoice(e, "priority")}
+            >
+              Priority
+            </button>
+          </div>
           {determineItemOrder(this.props.items, this.state.sortByChoice).map(
             item => (
               <ItemCard key={item.id} item={item} />

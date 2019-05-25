@@ -1,0 +1,45 @@
+@import "utils";
+
+.header-container {
+  position: relative;
+  .web-app-name {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 900;
+    font-size: 115px;
+    color: $green-color;
+  }
+
+  .spending-money {
+    font-size: 45px;
+  }
+
+  .percentage-and-total-money-subnote {
+    font-weight: 700;
+    color: $dark-grey-color;
+  }
+
+  .add-item-button,
+  .settings-button {
+    position: absolute;
+    top: 35px;
+    height: 87px;
+    border: none;
+    border-radius: 10px;
+  }
+
+  .add-item-button {
+    right: 100px;
+    width: 251px;
+    background-color: $green-color;
+    color: $grey-color;
+    font-size: 45px;
+    font-weight: 700;
+  }
+
+  .settings-button {
+    right: 0;
+    width: 87px;
+    background-color: #fff;
+    color: $green-color;
+  }
+}
