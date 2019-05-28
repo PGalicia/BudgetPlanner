@@ -2,6 +2,8 @@
 
 .header-container {
   position: relative;
+  margin-bottom: 50px;
+
   .web-app-name {
     font-family: "Montserrat", sans-serif;
     font-weight: 900;
@@ -11,6 +13,7 @@
 
   .spending-money {
     font-size: 45px;
+    margin-bottom: 10px;
   }
 
   .percentage-and-total-money-subnote {
@@ -34,12 +37,23 @@
     color: $grey-color;
     font-size: 45px;
     font-weight: 700;
+    transition: all 0.2s ease-out;
+
+    &:hover {
+      background-color: #fff;
+      color: $green-color;
+    }
   }
 
   .settings-button {
     right: 0;
     width: 87px;
-    background-color: #fff;
+    background-color: transparent;
     color: $green-color;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: rotate(45deg);
+    }
   }
 }

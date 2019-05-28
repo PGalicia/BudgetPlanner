@@ -40,8 +40,8 @@ class ItemCard extends Component {
     // Set Interval used for progress bar animation
     this.progressBarInterval = setInterval(() => {
       this.setState({
-        progressBarWidth: Math.floor(
-          (this.state.progressBarPercentage / 100) * 412
+        progressBarWidth: Math.ceil(
+          (this.state.progressBarPercentage / 100) * 422
         ),
         progressBarPercentage: this.state.progressBarPercentage + 1
       });
@@ -143,8 +143,13 @@ class ItemCard extends Component {
         {/* Pop up links */}
         {this.state.isMoreMenuOnDisplay && (
           <div className="extra-menu" ref={this.moreIcon}>
-            <p className="extra-menu-link">Edit</p>
-            <p className="extra-menu-link">Delete</p>
+            <button className="extra-menu-link">Edit</button>
+            <button
+              className="extra-menu-link"
+              onClick={this.props.handleDeleteButtonPress}
+            >
+              Delete
+            </button>
           </div>
         )}
       </Item>

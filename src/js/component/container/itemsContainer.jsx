@@ -1,4 +1,5 @@
 import React, { Component } from "react"; // React
+import { connect } from "react-redux"; // React-Redux
 import ItemCard from "./../presentational/itemCard.jsx"; // Component
 import "./../../scss/itemContainer.scss"; // SCSS
 import { determineItemOrder } from "./../../utils/determineItemOrder.js"; // Utils

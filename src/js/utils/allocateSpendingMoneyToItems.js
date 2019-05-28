@@ -3,9 +3,8 @@
     
     Prerequisites: items should have a priority, and goalPrice property
 */
-import { ITEMS } from "./../constant/items.js" // Constant
 
-export const allocateSpendingMoneyToItems = (spendingMoney, items = ITEMS) => {
+export const allocateSpendingMoneyToItems = (spendingMoney, items) => {
 
     // Preliminary check: If item list is emptyk return item list
     if (items.length === 0) { return items; }
