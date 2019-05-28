@@ -3,7 +3,7 @@ import ItemsContainer from "./itemsContainer.jsx"; // Component
 import Header from "./header.jsx"; // Component
 import "./../../scss/app.scss"; // SCSS
 import { connect } from "react-redux"; // React-Redux
-import { toggleDeleteConfirmationModal } from "./../../constant/actionTypes.js"; // Action Types
+import DeleteConfirmationModal from "./../presentational/deleteCofirmationModal.jsx"; // Component
 
 /*
   mapStateToProps,
@@ -12,12 +12,8 @@ import { toggleDeleteConfirmationModal } from "./../../constant/actionTypes.js";
 const mapStateToProps = state => {
   return {
     items: state.items,
-    isDeleteConfirmationModalOpen: state.isDeleteConfirmationModalOpen
+    targetedItemId: state.targetedItemId
   };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {};
 };
 
 class App extends Component {
@@ -26,13 +22,12 @@ class App extends Component {
       <>
         <Header />
         <ItemsContainer items={this.props.items} />
-        {/* {isDeleteConfirmationModalOpen && <DeleteConfirmatioModal item={0} />} */}
+        {this.props.targetedItemId !== -1 && (
+          <DeleteConfirmationModal id={this.props.targetedItemId} />
+        )}
       </>
     );
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default connect(mapStateToProps)(App);
