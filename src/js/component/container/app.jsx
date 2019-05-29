@@ -5,6 +5,7 @@ import "./../../scss/app.scss"; // SCSS
 import { connect } from "react-redux"; // React-Redux
 import DeleteConfirmationModal from "./../presentational/deleteCofirmationModal.jsx"; // Component
 import SettingsModal from "./../presentational/settingsModal.jsx"; // Component
+import ItemForm from "./itemForm.jsx"; // Component
 
 /*
   mapStateToProps,
@@ -15,8 +16,10 @@ const mapStateToProps = state => {
     items: state.items,
     totalMoney: state.totalMoney,
     percentage: state.percentage,
-    targetedItemId: state.targetedItemId,
-    isSettingsModalOpen: state.isSettingsModalOpen
+    targetedItem: state.targetedItem,
+    isSettingsModalOpen: state.isSettingsModalOpen,
+    isDeleteConfirmationModalOpen: state.isDeleteConfirmationModalOpen,
+    isItemFormPopUpOpen: state.isItemFormPopUpOpen
   };
 };
 
@@ -26,14 +29,18 @@ class App extends Component {
       <>
         <Header />
         <ItemsContainer items={this.props.items} />
-        {this.props.targetedItemId !== -1 && (
-          <DeleteConfirmationModal id={this.props.targetedItemId} />
+        {this.props.isDeleteConfirmationModalOpen && (
+          <DeleteConfirmationModal item={this.props.targetedItem} />
         )}
         {this.props.isSettingsModalOpen && (
           <SettingsModal
             totalMoney={this.props.totalMoney}
             percentage={this.props.percentage}
           />
+        )}
+        {this.props.isItemFormPopUpOpen && (
+          <ItemForm item={this.props.targetedItem} />
+          // <ItemForm />
         )}
       </>
     );

@@ -7,8 +7,10 @@ const initialState = {
     items: ITEMS,
     totalMoney: 1417.48,
     percentage: 25,
-    targetedItemId: -1,
-    isSettingsModalOpen: true
+    targetedItem: ITEMS[0],
+    isDeleteConfirmationModalOpen: false,
+    isSettingsModalOpen: false,
+    isItemFormPopUpOpen: true
 }
 
 const rootReducer = (state = initialState, action) => {

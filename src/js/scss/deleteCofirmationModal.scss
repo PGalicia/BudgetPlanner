@@ -5,12 +5,8 @@
   font-weight: 700;
 
   .delete-confirmation-question {
-    position: relative;
     text-align: center;
-    font-size: 45px;
-    color: $green-color;
-    margin: 100px;
-    margin-bottom: 50px;
+    margin: 50px;
 
     > span {
       color: black;

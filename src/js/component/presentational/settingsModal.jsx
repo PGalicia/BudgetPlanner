@@ -4,8 +4,8 @@ import CloseIcon from "./../../../asset/x-icon.svg"; // Asset
 
 const SettingsModal = props => {
   return (
-    <section className="small-modal-background">
-      <div className="modal-container settings-confirmation-modal">
+    <section className="modal-background">
+      <div className="small-modal-container settings-confirmation-modal">
         <p className="edit-information-info-heading">Edit Money Information</p>
         <div className="total-budget-container">
           <label htmlFor="total-budget-input">Total Budget:</label>

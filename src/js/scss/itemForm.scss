@@ -1,0 +1,57 @@
+@import "utils";
+
+.item-modal {
+  overflow: scroll;
+
+  .item-title {
+    margin-bottom: 7px;
+  }
+
+  .subheading {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    margin-bottom: 25px;
+  }
+
+  .item-form {
+    display: grid;
+    grid-gap: 25px;
+
+    .input-container {
+      > label {
+        display: inline-block;
+        margin-bottom: 10px;
+      }
+      > input {
+        width: 100%;
+      }
+    }
+
+    .name-input-container {
+      // max-width: 594px;
+    }
+
+    .item-cost-input-container {
+      grid-column: 2;
+      // max-width: 388px;
+      // justify-self: right;
+    }
+    .description-input-container,
+    .link-input-container {
+      grid-column: 1 / span 2;
+      // max-width: 1004px;
+    }
+
+    .priority-container {
+      grid-column: 1 / span 2;
+
+      .priority-button {
+        border-radius: 5px;
+        height: 45px;
+        width: 155px;
+        margin: 0 10px;
+      }
+    }
+  }
+}
