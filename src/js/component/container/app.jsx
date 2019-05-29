@@ -4,6 +4,7 @@ import Header from "./header.jsx"; // Component
 import "./../../scss/app.scss"; // SCSS
 import { connect } from "react-redux"; // React-Redux
 import DeleteConfirmationModal from "./../presentational/deleteCofirmationModal.jsx"; // Component
+import SettingsModal from "./../presentational/settingsModal.jsx"; // Component
 
 /*
   mapStateToProps,
@@ -12,7 +13,10 @@ import DeleteConfirmationModal from "./../presentational/deleteCofirmationModal.
 const mapStateToProps = state => {
   return {
     items: state.items,
-    targetedItemId: state.targetedItemId
+    totalMoney: state.totalMoney,
+    percentage: state.percentage,
+    targetedItemId: state.targetedItemId,
+    isSettingsModalOpen: state.isSettingsModalOpen
   };
 };
 
@@ -24,6 +28,12 @@ class App extends Component {
         <ItemsContainer items={this.props.items} />
         {this.props.targetedItemId !== -1 && (
           <DeleteConfirmationModal id={this.props.targetedItemId} />
+        )}
+        {this.props.isSettingsModalOpen && (
+          <SettingsModal
+            totalMoney={this.props.totalMoney}
+            percentage={this.props.percentage}
+          />
         )}
       </>
     );

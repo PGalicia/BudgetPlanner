@@ -4,8 +4,8 @@ import CloseIcon from "./../../../asset/x-icon.svg"; // Asset
 
 const DeleteConfirmationModal = props => {
   return (
-    <section className="modal-background">
-      <div className="modal-container">
+    <section className="small-modal-background">
+      <div className="modal-container delete-confirmation-modal">
         <p className="delete-confirmation-question">
           Are you sure you want to delete <span>NIKE Benassi Slides</span> ?
         </p>

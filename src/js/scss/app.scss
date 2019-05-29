@@ -28,11 +28,54 @@ button {
 }
 
 // classes
-.modal-background {
+// Small modal
+.small-modal-background {
   position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
   width: 100vw;
   background-color: rgba(255, 255, 255, 0.6);
+
+  .modal-container {
+    position: absolute;
+    width: 922px;
+    height: 428px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 50px;
+    box-shadow: 4px 0px 25px 0px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.close-button {
+  position: absolute;
+  right: 50px;
+  top: 50px;
+}
+
+input[type="text"] {
+  border-radius: 10px;
+  border: 2px solid $light-grey-color;
+  background-color: transparent;
+  height: 60px;
+  padding: 5px 10px;
+}
+
+.sm-button {
+  position: relative;
+  width: 259px;
+  height: 69px;
+  display: block;
+  border-radius: 10px;
+  font-size: 18px;
+  background-color: $green-color;
+  color: $grey-color;
+
+  &:hover {
+    background-color: $grey-color;
+    color: $green-color;
+  }
 }

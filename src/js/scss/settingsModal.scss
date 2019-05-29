@@ -1,0 +1,56 @@
+@import "utils";
+
+.settings-confirmation-modal {
+  padding: 50px;
+  box-sizing: border-box;
+
+  .edit-information-info-heading {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-size: 45px;
+    color: $green-color;
+    margin-bottom: 25px;
+  }
+
+  .total-budget-container,
+  .percentage-container {
+    position: relative;
+    display: grid;
+    grid-template-columns: 115px auto;
+    grid-row-gap: 10px;
+    align-items: center;
+    margin-bottom: 25px;
+  }
+
+  .total-budget-input,
+  .percentage-input {
+    box-sizing: border-box;
+    width: 115px;
+    text-align: right;
+    font-size: 36px;
+  }
+
+  .total-budget-input {
+    width: 288px;
+
+    & + span {
+      left: 135px;
+    }
+  }
+  .percentage-input {
+    width: 168px;
+    padding-right: 35px;
+
+    & + span {
+      left: 255px;
+    }
+  }
+
+  .input-icon {
+    position: absolute;
+    color: $dark-grey-color;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+  }
+}
