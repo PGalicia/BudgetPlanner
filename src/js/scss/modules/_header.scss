@@ -1,7 +1,4 @@
 .header {
-  position: relative;
-  margin-bottom: 50px;
-
   &__app-name {
     @extend %font-title-style;
   }

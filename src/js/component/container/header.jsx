@@ -30,7 +30,7 @@ class Header extends Component {
     allocateSpendingMoneyToItems(spendingMoney, this.props.items);
 
     return (
-      <header className="header">
+      <header className="header" id="header">
         <h1 className="header__app-name">WISELY</h1>
         <p className="header__spending-money">
           Spending Money:{" "}

@@ -9,7 +9,7 @@ const initialState = {
     percentage: 25,
     targetedItem: ITEMS[0],
     isDeleteConfirmationModalOpen: false,
-    isSettingsModalOpen: true,
+    isSettingsModalOpen: false,
     isItemFormPopUpOpen: false
 }
 

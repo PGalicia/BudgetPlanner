@@ -59,6 +59,7 @@ class ItemsContainer extends Component {
       <>
         <ItemContainer
           className="item"
+          id="item"
           pose={this.state.isItemsContainerVisible ? "open" : "closed"}
         >
           <div className="item__sort-by">
