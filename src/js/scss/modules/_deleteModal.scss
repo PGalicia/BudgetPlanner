@@ -1,0 +1,16 @@
+.delete-modal {
+  @extend %font-sub-header-style;
+
+  &__question {
+    text-align: center;
+    margin: 50px;
+
+    > span {
+      color: black;
+    }
+  }
+
+  &__button {
+    margin: 0 auto;
+  }
+}

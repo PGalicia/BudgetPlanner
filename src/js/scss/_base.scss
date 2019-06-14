@@ -1,0 +1,32 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+body {
+  margin: 0 auto;
+  box-sizing: border-box;
+  max-width: $max-body-width;
+  background-color: $grey-color;
+  @extend %font-body-style;
+}
+
+button {
+  border: none;
+  transition: $transition-color-button;
+  cursor: pointer;
+}
+
+input[type="text"] {
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 2px solid $light-grey-color;
+  background-color: transparent;
+  height: 60px;
+  padding: 5px 10px;
+}

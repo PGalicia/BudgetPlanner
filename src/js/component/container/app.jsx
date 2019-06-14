@@ -1,7 +1,7 @@
 import React, { Component } from "react"; // React
 import ItemsContainer from "./itemsContainer.jsx"; // Component
 import Header from "./header.jsx"; // Component
-import "./../../scss/app.scss"; // SCSS
+import "./../../scss/index.scss"; // SCSS
 import { connect } from "react-redux"; // React-Redux
 import DeleteConfirmationModal from "./../presentational/deleteCofirmationModal.jsx"; // Component
 import SettingsModal from "./../presentational/settingsModal.jsx"; // Component

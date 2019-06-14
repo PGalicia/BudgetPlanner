@@ -1,7 +1,6 @@
 import React, { Component } from "react"; // React
 import { connect } from "react-redux"; // React-Redux
 import ItemCard from "./../presentational/itemCard.jsx"; // Component
-import "./../../scss/itemContainer.scss"; // SCSS
 import { determineItemOrder } from "./../../utils/determineItemOrder.js"; // Utils
 import posed from "react-pose"; // Library
 
@@ -59,16 +58,16 @@ class ItemsContainer extends Component {
     return (
       <>
         <ItemContainer
-          className="items-container"
+          className="item"
           pose={this.state.isItemsContainerVisible ? "open" : "closed"}
         >
-          <div className="sort-by">
-            <span>Sort By: </span>
+          <div className="item__sort-by">
+            <span className="item__sort-label">Sort By: </span>
             <button
               className={
                 this.state.sortByChoice === "alphabetically"
-                  ? "sort-by-button active"
-                  : "sort-by-button"
+                  ? "item__sort-button button-active"
+                  : "item__sort-button"
               }
               onClick={e => this.handleSortByChoice(e, "alphabetically")}
             >
@@ -77,8 +76,8 @@ class ItemsContainer extends Component {
             <button
               className={
                 this.state.sortByChoice === "priority"
-                  ? "sort-by-button active"
-                  : "sort-by-button"
+                  ? "item__sort-button button-active"
+                  : "item__sort-button"
               }
               onClick={e => this.handleSortByChoice(e, "priority")}
             >

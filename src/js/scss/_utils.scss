@@ -1,8 +1,164 @@
-$max-body-width: 1152px;
-$grey-color: #f8f8fa;
-$dark-grey-color: #bdbdbd;
-$light-grey-color: #e5e5e5;
-$yellow-color: #f2c233;
-$off-black-color: #333333;
-$green-color: #1fbf84;
-$red-color: #ff686a;
+// ===============
+// Mixin
+// ===============
+
+// Center element
+@mixin center-content($pos: absolute) {
+  position: $pos;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// Horizontally center element
+@mixin centerX-content($pos: absolute) {
+  position: $pos;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+// Vertically center element
+@mixin centerY-content($pos: absolute) {
+  position: $pos;
+  top: 50%;
+  transform: translate(-50%);
+}
+
+// Set Width and Height of the element
+@mixin setWidthAndHeight($width: auto, $height: auto) {
+  width: $width;
+  height: $height;
+}
+
+// Set up transition
+@mixin transition($property: all) {
+  transition: $property 0.2s ease-out;
+}
+
+@mixin createTriangle($side, $color, $size) {
+  position: absolute;
+  border: $size solid transparent;
+  #{$side}: #{$color};
+}
+
+// ===============
+// Extend
+// ===============
+
+%font-body-style {
+  font-family: "Karla", sans-serif;
+  font-size: 18px;
+}
+
+%font-title-style {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 900;
+  font-size: 115px;
+  color: #1fbf84;
+}
+
+%font-header-style {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+}
+
+%font-sub-header-style {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 45px;
+  color: #1fbf84;
+}
+
+%font-small-style {
+  font-family: "Karla", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: $dark-grey-color;
+}
+
+%box-shadow {
+  -webkit-box-shadow: 4px 0px 25px 0px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 4px 0px 25px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 4px 0px 25px 0px rgba(0, 0, 0, 0.15);
+}
+
+// ===============
+// Extra Classes
+// ===============
+
+.close-button {
+  position: absolute;
+  right: 50px;
+  top: 50px;
+}
+
+.sm-button {
+  position: relative;
+  @include setWidthAndHeight(259px, 69px);
+  display: block;
+  border-radius: 10px;
+  font-size: 18px;
+  background-color: #1fbf84;
+  color: #f8f8fa;
+
+  &:hover {
+    background-color: #f8f8fa;
+    color: #1fbf84;
+  }
+}
+
+.side-note {
+  padding-left: 10px;
+  font-size: 14px;
+  color: $dark-grey-color;
+  font-style: italic;
+}
+
+// classes
+// Small modal
+.modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(255, 255, 255, 0.6);
+
+  .small-modal-container,
+  .large-modal-container {
+    position: absolute;
+    padding: 50px;
+    box-sizing: border-box;
+    background-color: white;
+    box-shadow: 4px 0px 25px 0px rgba(0, 0, 0, 0.15);
+  }
+
+  .small-modal-container {
+    width: 922px;
+    height: 428px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50px;
+  }
+
+  .large-modal-container {
+    width: 1152px;
+    height: 80%;
+    max-height: 903px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50px 50px 0 0;
+    margin: 0 auto;
+  }
+}
+
+.heading {
+  position: relative;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 45px;
+  color: $green-color;
+}

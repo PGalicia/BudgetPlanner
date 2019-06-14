@@ -1,0 +1,191 @@
+.item {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  justify-content: center;
+  grid-gap: 50px;
+  margin: 25px auto;
+
+  &__sort-by {
+    grid-column: 1 / -1;
+  }
+
+  &__sort-label {
+    margin-right: 10px;
+  }
+
+  &__sort-button {
+    width: 150px;
+    height: 45px;
+    border: none;
+    color: $green-color;
+    background-color: #fff;
+    cursor: pointer;
+    transition: all 0.4s ease;
+
+    &:first-of-type {
+      border-radius: 10px 0 0 10px;
+    }
+
+    &:last-of-type {
+      border-radius: 0 10px 10px 0;
+    }
+
+    &:hover {
+      color: $grey-color;
+      background-color: $green-color;
+    }
+  }
+
+  &__card {
+    position: relative;
+    @include setWidthAndHeight(468px, 271px);
+    @extend %box-shadow;
+    background-color: $white-color;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 25px;
+    overflow: hidden;
+  }
+
+  &__name {
+    @extend %font-header-style;
+    margin-bottom: 10px;
+  }
+
+  &__description {
+    color: $dark-grey-color;
+    margin-bottom: 10px;
+  }
+
+  &__more-icon {
+    position: absolute;
+    top: 32px;
+    right: 30px;
+    cursor: pointer;
+  }
+
+  &__progress-label {
+    font-weight: $font-weight-bold;
+  }
+
+  &__price {
+    @extend %font-small-style;
+    margin-left: 10px;
+  }
+
+  &__progress-bar-container {
+    position: relative;
+    @include setWidthAndHeight(100%, 10px);
+    margin: 10px 0;
+
+    > * {
+      height: 10px;
+      border-radius: 5px;
+    }
+  }
+
+  &__goal-bar {
+    position: relative;
+    width: 100%;
+    background-color: $light-grey-color;
+  }
+
+  &__percentage {
+    position: absolute;
+    top: -30px;
+    right: 0;
+  }
+
+  &__current-bar {
+    position: absolute;
+    top: 0;
+    @include transition(width);
+  }
+
+  &__priority {
+    position: relative;
+    @include setWidthAndHeight(118px, 27px);
+    margin: 20px 0;
+    font-size: $font-size-small;
+    color: $grey-color;
+    border-radius: 5px;
+
+    > span {
+      text-align: center;
+      width: 100%;
+      @include center-content();
+    }
+  }
+
+  &__link {
+    &:hover {
+      .item__link-label {
+        opacity: 1;
+        right: 39px;
+      }
+    }
+  }
+
+  &__arrow-icon,
+  &__link-label {
+    position: absolute;
+    bottom: 41px;
+  }
+
+  &__arrow-icon {
+    right: 25px;
+    cursor: pointer;
+    @include transition();
+    z-index: 5;
+
+    &:hover {
+      right: 17px;
+    }
+  }
+
+  &__link-label {
+    color: $dark-grey-color;
+    right: -40px;
+    font-size: $font-size-small;
+    pointer-events: none;
+    opacity: 0;
+    @include transition();
+  }
+
+  &__extra-menu {
+    position: absolute;
+    top: 62px;
+    right: 20px;
+    @extend %box-shadow;
+    z-index: 10;
+    border-radius: 5px;
+    background-color: $white-color;
+    color: $off-black-color;
+    @include transition();
+
+    &::before {
+      content: "";
+      top: -23px;
+      right: 6px;
+      z-index: -1;
+      border-radius: 5px;
+      @include createTriangle(border-bottom-color, $white-color, 12px);
+    }
+  }
+
+  &__extra-menu-link {
+    display: block;
+    @include setWidthAndHeight(72px, 31px);
+    padding: 7px;
+    text-align: left;
+    border-radius: 5px;
+    @include transition();
+    line-height: 15.5px;
+    background-color: transparent;
+
+    &:hover {
+      color: $white-color;
+      background-color: $dark-grey-color;
+    }
+  }
+}

@@ -1,0 +1,86 @@
+.item-modal {
+  overflow: scroll;
+
+  &__title {
+    margin-bottom: 7px;
+  }
+
+  &__subheading {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    margin-bottom: 25px;
+  }
+
+  &__input {
+    > label {
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    > input {
+      width: 100%;
+    }
+
+    &#cost {
+      grid-column: 2;
+    }
+
+    &#description,
+    &#link {
+      grid-column: 1 / span 2;
+    }
+  }
+
+  &__form {
+    display: grid;
+    grid-gap: 25px;
+  }
+
+  &__priority {
+    grid-column: 1 / span 2;
+  }
+
+  &__priority-button {
+    border-radius: 5px;
+    background-color: transparent;
+    height: 45px;
+    width: 155px;
+    margin: 0 10px;
+
+    &#high {
+      border: 2px solid $red-color;
+      color: $red-color;
+
+      &:hover,
+      &.active {
+        color: $grey-color;
+        background-color: $red-color;
+        border-color: $red-color;
+      }
+    }
+
+    &#med {
+      border: 2px solid $yellow-color;
+      color: $yellow-color;
+
+      &:hover,
+      &.active {
+        color: $grey-color;
+        background-color: $yellow-color;
+        border-color: $yellow-color;
+      }
+    }
+
+    &#low {
+      border: 2px solid $dark-grey-color;
+      color: $dark-grey-color;
+
+      &:hover,
+      &.active {
+        color: $grey-color;
+        background-color: $dark-grey-color;
+        border-color: $dark-grey-color;
+      }
+    }
+  }
+}

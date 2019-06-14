@@ -1,6 +1,5 @@
 import React, { Component } from "react"; // React
 import { connect } from "react-redux"; // React-Redux
-import "./../../scss/header.scss"; // SCSS
 import CogIcon from "./../../../asset/cog-icon.svg"; // Asset
 import { calculateSpendingMoney } from "./../../utils/calculateSpendingMoney.js"; // Utils
 import { allocateSpendingMoneyToItems } from "./../../utils/allocateSpendingMoneyToItems.js"; // Utils
@@ -31,9 +30,9 @@ class Header extends Component {
     allocateSpendingMoneyToItems(spendingMoney, this.props.items);
 
     return (
-      <header className="header-container">
-        <h1 className="web-app-name">WISELY</h1>
-        <p className="spending-money">
+      <header className="header">
+        <h1 className="header__app-name">WISELY</h1>
+        <p className="header__spending-money">
           Spending Money:{" "}
           <strong>
             ${" "}
@@ -43,15 +42,15 @@ class Header extends Component {
             })}
           </strong>
         </p>
-        <p className="percentage-and-total-money-subnote">
+        <p className="header__percentage-and-total-money-subnote">
           The spending money is {this.props.percentage}% of your total budget: $
           {this.props.totalMoney.toLocaleString("en-US", {
             style: "currency",
             currency: "USD"
           })}
         </p>
-        <button className="add-item-button">Add Item</button>
-        <button className="settings-button">
+        <button className="header__add-item-button">Add Item</button>
+        <button className="header__settings-button">
           <img src={CogIcon} alt="Settings Icon" />
         </button>
       </header>

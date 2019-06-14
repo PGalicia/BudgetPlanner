@@ -1,31 +1,32 @@
 import React from "react"; // React
-import "./../../scss/settingsModal.scss"; // SCSS
 import CloseIcon from "./../../../asset/x-icon.svg"; // Asset
 
 const SettingsModal = props => {
   return (
     <section className="modal-background">
-      <div className="small-modal-container settings-confirmation-modal">
-        <p className="edit-information-info-heading">Edit Money Information</p>
-        <div className="total-budget-container">
+      <div className="small-modal-container settings-modal">
+        <p className="settings-modal__label">Edit Money Information</p>
+        <div className="settings-modal__total-budget">
           <label htmlFor="total-budget-input">Total Budget:</label>
           <input
             type="text"
-            className="total-budget-input"
+            className="settings-modal__total-budget-input"
+            id="total-budget-input"
             value={props.totalMoney}
           />
-          <span className="input-icon">$</span>
+          <span className="settings-modal__input-icon">$</span>
         </div>
-        <div className="percentage-container">
+        <div className="settings-modal__percentage">
           <label htmlFor="percentage-input">Percentage:</label>
           <input
             type="text"
-            className="percentage-input"
+            className="settings-modal__percentage-input"
+            id="percentage-input"
             value={props.percentage}
           />
-          <span className="input-icon">%</span>
+          <span className="settings-modal__input-icon">%</span>
         </div>
-        <button className="apply-changes-button sm-button">
+        <button className="settings-modal__apply-button sm-button">
           Apply Changes
         </button>
         <img className="close-button" src={CloseIcon} alt="Close Icon" />

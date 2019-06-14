@@ -1,0 +1,44 @@
+.settings-modal {
+  padding: 50px;
+  box-sizing: border-box;
+
+  &__label {
+    @extend %font-sub-header-style;
+    margin-bottom: 25px;
+  }
+
+  &__total-budget,
+  &__percentage {
+    position: relative;
+    display: grid;
+    grid-template-columns: 115px auto;
+    grid-row-gap: 10px;
+    align-items: center;
+    margin-bottom: 25px;
+  }
+
+  &__total-budget-input,
+  &__percentage-input {
+    box-sizing: border-box;
+    width: 115px;
+    text-align: right;
+    font-size: $font-size-header-2;
+
+    & + span {
+      left: 135px;
+    }
+  }
+
+  &__total-budget-input {
+    width: 288px;
+  }
+  &__percentage-input {
+    width: 168px;
+  }
+
+  &__input-icon {
+    color: $dark-grey-color;
+    @include center-content();
+    font-size: $font-size-body;
+  }
+}

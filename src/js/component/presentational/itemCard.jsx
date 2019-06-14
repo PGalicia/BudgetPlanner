@@ -1,5 +1,4 @@
 import React, { Component } from "react"; // React
-import "./../../scss/itemCard.scss"; // SCSS
 import { determineProgressBarColor } from "./../../utils/determineProgressBarColor.js"; // Utils
 import { determineItemPriorityColorAndText } from "./../../utils/determineItemPriorityColorAndText.js"; // Utils
 import ArrowIcon from "./../../../asset/arrow-icon.svg"; // Asset
@@ -112,40 +111,40 @@ class ItemCard extends Component {
     };
 
     return (
-      <Item className="item-card">
-        <h2 className="item-name">{name}</h2>
-        <p className="item-description">{description}</p>
+      <Item className="item__card">
+        <h2 className="item__name">{name}</h2>
+        <p className="item__description">{description}</p>
         <img
           src={MoreIcon}
-          className="more-icon"
+          className="item__more-icon"
           onClick={this.toggleMoreIconButtonPress}
         />
-        <h4 className="progress-label">
+        <h4 className="item__progress-label">
           Progress
-          <span className="price">{`$${currentPrice}/$${goalPrice}`}</span>
+          <span className="item__price">{`$${currentPrice}/$${goalPrice}`}</span>
         </h4>
-        <div className="progress-bar-container">
-          <h4 className="percentage">{`${
+        <div className="item__progress-bar-container">
+          <h4 className="item__percentage">{`${
             this.state.progressBarPercentage
           }%`}</h4>
-          <div className="goal-bar" />
-          <div className="current-bar" style={progressBarStyle} />
+          <div className="item__goal-bar" />
+          <div className="item__current-bar" style={progressBarStyle} />
         </div>
-        <div className="priority" style={priorityContainerStyle}>
+        <div className="item__priority" style={priorityContainerStyle}>
           <span>{`${text} Priority`}</span>
         </div>
 
-        <a href={link} target="_blank" className="item-link">
-          <img src={ArrowIcon} className="arrow-icon" />
-          <p className="link-label">Click to go to item’s page</p>
+        <a href={link} target="_blank" className="item__link">
+          <img src={ArrowIcon} className="item__arrow-icon" />
+          <p className="item__link-label">Click to go to item’s page</p>
         </a>
 
         {/* Pop up links */}
         {this.state.isMoreMenuOnDisplay && (
-          <div className="extra-menu" ref={this.moreIcon}>
-            <button className="extra-menu-link">Edit</button>
+          <div className="item__extra-menu" ref={this.moreIcon}>
+            <button className="item__extra-menu-link">Edit</button>
             <button
-              className="extra-menu-link"
+              className="item__extra-menu-link"
               onClick={this.props.handleDeleteButtonPress}
             >
               Delete

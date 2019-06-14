@@ -1,5 +1,4 @@
 import React, { Component } from "react"; // React
-import "./../../scss/itemForm.scss"; // SCSS
 import CloseIcon from "./../../../asset/x-icon.svg"; // Asset
 
 class AddItemForm extends Component {
@@ -29,62 +28,42 @@ class AddItemForm extends Component {
     return (
       <div className="modal-background">
         <div className="large-modal-container item-modal">
-          <p className="item-title heading">
+          <p className="item-modal__title heading">
             {this.props.item ? "Edit" : "Add"} Item
           </p>
           {this.props.item && (
-            <p className="subheading">{this.props.item.name}</p>
+            <p className="item-modal__subheading">{this.props.item.name}</p>
           )}
-          <form className="item-form">
-            <div className="name-input-container input-container">
+          <form className="item-modal__form">
+            <div className="item-modal__input" id="name">
               <label htmlFor="name-input">
                 Name:<span className="side-note">max character 21</span>
               </label>
-              <input
-                type="text"
-                className="name-input"
-                id="name-input"
-                value={name}
-              />
+              <input type="text" id="name-input" value={name} />
             </div>
-            <div className="item-cost-input-container input-container">
+            <div className="item-modal__input" id="cost">
               <label htmlFor="item-cost-input">Item Cost:</label>
-              <input
-                type="text"
-                className="item-cost-input"
-                id="item-cost-input"
-                value={goalPrice}
-              />
+              <input type="text" id="item-cost-input" value={goalPrice} />
             </div>
-            <div className="description-input-container input-container">
+            <div className="item-modal__input" id="description">
               <label htmlFor="description-input">
                 Description:<span className="side-note">max character 123</span>
               </label>
-              <input
-                type="text"
-                className="description-input"
-                id="description-input"
-                value={description}
-              />
+              <input type="text" id="description-input" value={description} />
             </div>
-            <div className="link-input-container input-container">
+            <div className="item-modal__input" id="link">
               <label htmlFor="link-input">Link:</label>
-              <input
-                type="text"
-                className="link-input"
-                id="link-input"
-                value={link}
-              />
+              <input type="text" id="link-input" value={link} />
             </div>
-            <div className="priority-container">
+            <div className="item-modal__priority">
               <span>Priority:</span>
-              <button className="priority-button" id="high">
+              <button className="item-modal__priority-button" id="high">
                 High Priority
               </button>
-              <button className="priority-button" id="med">
+              <button className="item-modal__priority-button" id="med">
                 Medium Priority
               </button>
-              <button className="priority-button" id="low">
+              <button className="item-modal__priority-button" id="low">
                 Low Priority
               </button>
             </div>

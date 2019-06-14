@@ -9,8 +9,8 @@ const initialState = {
     percentage: 25,
     targetedItem: ITEMS[0],
     isDeleteConfirmationModalOpen: false,
-    isSettingsModalOpen: false,
-    isItemFormPopUpOpen: true
+    isSettingsModalOpen: true,
+    isItemFormPopUpOpen: false
 }
 
 const rootReducer = (state = initialState, action) => {

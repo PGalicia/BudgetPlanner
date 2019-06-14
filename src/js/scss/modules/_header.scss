@@ -1,0 +1,51 @@
+.header {
+  position: relative;
+  margin-bottom: 50px;
+
+  &__app-name {
+    @extend %font-title-style;
+  }
+
+  &__spending-money {
+    font-size: $font-size-header-1;
+    margin-bottom: 10px;
+  }
+
+  &__percentage-and-total-money-subnote {
+    font-weight: $font-weight-bold;
+    color: $dark-grey-color;
+  }
+
+  &__add-item-button,
+  &__settings-button {
+    position: absolute;
+    top: 35px;
+    border-radius: 10px;
+  }
+
+  &__add-item-button {
+    right: 100px;
+    @include setWidthAndHeight(251px, 87px);
+    background-color: $green-color;
+    color: $grey-color;
+    font-size: $font-size-header-1;
+    font-weight: $font-weight-bold;
+
+    &:hover {
+      background-color: $white-color;
+      color: $green-color;
+    }
+  }
+
+  &__settings-button {
+    right: 0;
+    @include setWidthAndHeight(81px, 87px);
+    background-color: transparent;
+    color: $green-color;
+    @include transition(transform);
+
+    &:hover {
+      transform: rotate(45deg);
+    }
+  }
+}
