@@ -40,6 +40,10 @@
     grid-column: 1 / span 2;
   }
 
+  &__asterisk {
+    color: $red-color;
+  }
+
   &__priority-button {
     border-radius: 5px;
     background-color: transparent;

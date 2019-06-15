@@ -10,7 +10,7 @@ const initialState = {
     targetedItem: ITEMS[0],
     isDeleteConfirmationModalOpen: false,
     isSettingsModalOpen: false,
-    isItemFormPopUpOpen: false
+    isItemFormPopUpOpen: true
 }
 
 const rootReducer = (state = initialState, action) => {
