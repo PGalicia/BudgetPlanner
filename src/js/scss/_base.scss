@@ -22,11 +22,21 @@ button {
   cursor: pointer;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="number"] {
   box-sizing: border-box;
   border-radius: 10px;
   border: 2px solid $light-grey-color;
   background-color: transparent;
   height: 60px;
   padding: 5px 10px;
+}
+
+// Hide arrow
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
 }
