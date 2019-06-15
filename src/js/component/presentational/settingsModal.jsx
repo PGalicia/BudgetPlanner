@@ -1,5 +1,16 @@
 import React from "react"; // React
+import { connect } from "react-redux"; // React-Redux
 import CloseIcon from "./../../../asset/x-icon.svg"; // Asset
+import { toggleSettingsModal } from "./../../action/index.js"; // Action Types
+
+/*
+  mapDispatchToProps
+*/
+const mapDispatchToProps = dispatch => {
+  return {
+    toggleSettingsModal: bool => dispatch(toggleSettingsModal(bool))
+  };
+};
 
 const SettingsModal = props => {
   return (
@@ -29,9 +40,17 @@ const SettingsModal = props => {
         <button className="settings-modal__apply-button sm-button">
           Apply Changes
         </button>
-        <img className="close-button" src={CloseIcon} alt="Close Icon" />
+        <img
+          className="close-button"
+          src={CloseIcon}
+          alt="Close Icon"
+          onClick={() => props.toggleSettingsModal(false)}
+        />
       </div>
     </section>
   );
 };
-export default SettingsModal;
+export default connect(
+  null,
+  mapDispatchToProps
+)(SettingsModal);

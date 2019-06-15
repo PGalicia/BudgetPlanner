@@ -3,15 +3,23 @@ import { connect } from "react-redux"; // React-Redux
 import CogIcon from "./../../../asset/cog-icon.svg"; // Asset
 import { calculateSpendingMoney } from "./../../utils/calculateSpendingMoney.js"; // Utils
 import { allocateSpendingMoneyToItems } from "./../../utils/allocateSpendingMoneyToItems.js"; // Utils
+import { toggleSettingsModal } from "./../../action/index.js"; // Action Types
 
 /*
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 */
 const mapStateToProps = state => {
   return {
     items: state.items,
     totalMoney: state.totalMoney,
     percentage: state.percentage
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    toggleSettingsModal: bool => dispatch(toggleSettingsModal(bool))
   };
 };
 
@@ -50,7 +58,10 @@ class Header extends Component {
           })}
         </p>
         <button className="header__add-item-button">Add Item</button>
-        <button className="header__settings-button">
+        <button
+          className="header__settings-button"
+          onClick={() => this.props.toggleSettingsModal(true)}
+        >
           <img src={CogIcon} alt="Settings Icon" />
         </button>
       </header>
@@ -58,4 +69,7 @@ class Header extends Component {
   }
 }
 
-export default connect(mapStateToProps)(Header);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Header);

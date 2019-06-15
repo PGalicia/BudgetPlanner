@@ -47,14 +47,5 @@ export const ITEMS = [
         goalPrice: 300.00,
         priority: 3,
         link: "https://stockx.com/nike-air-max-1-anniversary-red-2017-restock"
-    },
-    {
-        id: 6,
-        name: "Baba Is You",
-        description: "",
-        currentPrice: 0,
-        goalPrice: 20.00,
-        priority: 1,
-        link: ""
     }
 ];
