@@ -40,7 +40,6 @@ class App extends Component {
         )}
         {this.props.isItemFormPopUpOpen && (
           <ItemForm item={this.props.targetedItem} />
-          // <ItemForm />
         )}
       </>
     );

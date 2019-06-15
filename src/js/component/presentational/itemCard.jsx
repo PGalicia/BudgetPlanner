@@ -3,6 +3,7 @@ import { determineProgressBarColor } from "./../../utils/determineProgressBarCol
 import { determineItemPriorityColorAndText } from "./../../utils/determineItemPriorityColorAndText.js"; // Utils
 import ArrowIcon from "./../../../asset/arrow-icon.svg"; // Asset
 import MoreIcon from "./../../../asset/more-icon.svg"; // Asset
+import StopIcon from "./../../../asset/stop-icon.svg"; // Asset
 import posed from "react-pose"; // Library
 
 // ItemCard - Posed
@@ -110,10 +111,25 @@ class ItemCard extends Component {
       backgroundColor: color
     };
 
+    const linkView =
+      link === "" ? (
+        <div className="item__invalid-link">
+          <img src={StopIcon} className="item__stop-icon" />
+          <p className="item__link-label">There's no provided link</p>
+        </div>
+      ) : (
+        <a href={link} target="_blank" className="item__link">
+          <img src={ArrowIcon} className="item__arrow-icon" />
+          <p className="item__link-label">Click to go to item’s page</p>
+        </a>
+      );
+
     return (
       <Item className="item__card">
         <h2 className="item__name">{name}</h2>
-        <p className="item__description">{description}</p>
+        <p className="item__description">
+          {description === "" ? "No description available" : description}
+        </p>
         <img
           src={MoreIcon}
           className="item__more-icon"
@@ -134,10 +150,8 @@ class ItemCard extends Component {
           <span>{`${text} Priority`}</span>
         </div>
 
-        <a href={link} target="_blank" className="item__link">
-          <img src={ArrowIcon} className="item__arrow-icon" />
-          <p className="item__link-label">Click to go to item’s page</p>
-        </a>
+        {/* Link View */}
+        {linkView}
 
         {/* Pop up links */}
         {this.state.isMoreMenuOnDisplay && (

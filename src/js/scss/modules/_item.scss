@@ -53,6 +53,7 @@
 
   &__description {
     color: $dark-grey-color;
+    height: 66px;
     margin-bottom: 10px;
   }
 
@@ -116,7 +117,8 @@
     }
   }
 
-  &__link {
+  &__link,
+  &__invalid-link {
     &:hover {
       .item__link-label {
         opacity: 1;
@@ -126,12 +128,14 @@
   }
 
   &__arrow-icon,
+  &__stop-icon,
   &__link-label {
     position: absolute;
     bottom: 41px;
   }
 
-  &__arrow-icon {
+  &__arrow-icon,
+  &__stop-icon {
     right: 25px;
     cursor: pointer;
     @include transition();
