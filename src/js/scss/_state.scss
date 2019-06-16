@@ -2,3 +2,7 @@
   color: $grey-color;
   background-color: $green-color;
 }
+
+.input-error {
+  border: 2px solid $red-color;
+}
