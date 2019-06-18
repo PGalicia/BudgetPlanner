@@ -9,6 +9,7 @@ export const ITEMS = [
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         currentPrice: 0,
         goalPrice: 50.00,
+        percentage: 0,
         priority: 1,
         link: "https://www.nike.com/t/benassi-slide-JMOEGm"
     },
@@ -18,6 +19,7 @@ export const ITEMS = [
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         currentPrice: 0,
         goalPrice: 150.00,
+        percentage: 0,
         priority: 3,
         link: "https://www.amazon.com/Apple-TV-32GB-4th-generation/dp/B075NFX24M"
     },
@@ -27,6 +29,7 @@ export const ITEMS = [
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         currentPrice: 0,
         goalPrice: 60.00,
+        percentage: 0,
         priority: 2,
         link: "https://www.amazon.com/DualShock-Wireless-Controller-PlayStation-Black-4/dp/B01LWVX2RG"
     },
@@ -36,6 +39,7 @@ export const ITEMS = [
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         currentPrice: 0,
         goalPrice: 299.00,
+        percentage: 0,
         priority: 1,
         link: "https://www.amazon.com/Nintendo-Switch-Neon-Red-Blue-Joy/dp/B01MUAGZ49/ref=sr_1_1?keywords=045496590093&qid=1558568076&s=gateway&sr=8-1"
     },
@@ -45,6 +49,7 @@ export const ITEMS = [
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         currentPrice: 0,
         goalPrice: 300.00,
+        percentage: 0,
         priority: 3,
         link: "https://stockx.com/nike-air-max-1-anniversary-red-2017-restock"
     }

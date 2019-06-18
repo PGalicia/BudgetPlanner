@@ -16,11 +16,20 @@ const ItemContainer = posed.section({
 });
 
 /*
+  mapStateToProps
+*/
+const mapStateToProps = state => {
+  return {
+    items: state.items
+  };
+};
+
+/*
     ItemContainer
 */
 class ItemsContainer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     // State
     this.state = {
@@ -32,7 +41,7 @@ class ItemsContainer extends Component {
     this.handleSortByChoice = this.handleSortByChoice.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     // Set Timeout used for progress bar animation
     setTimeout(() => {
       this.setState({
@@ -96,4 +105,4 @@ class ItemsContainer extends Component {
   }
 }
 
-export default ItemsContainer;
+export default connect(mapStateToProps)(ItemsContainer);

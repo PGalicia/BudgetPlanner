@@ -3,7 +3,10 @@ import { connect } from "react-redux"; // React-Redux
 import CogIcon from "./../../../asset/cog-icon.svg"; // Asset
 import { calculateSpendingMoney } from "./../../utils/calculateSpendingMoney.js"; // Utils
 import { allocateSpendingMoneyToItems } from "./../../utils/allocateSpendingMoneyToItems.js"; // Utils
-import { toggleSettingsModal } from "./../../action/index.js"; // Action Types
+import {
+  toggleSettingsModal,
+  updateCurrentPricesForItems
+} from "./../../action/index.js"; // Action Types
 
 /*
   mapStateToProps,
@@ -19,7 +22,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    toggleSettingsModal: bool => dispatch(toggleSettingsModal(bool))
+    toggleSettingsModal: bool => dispatch(toggleSettingsModal(bool)),
+    updateCurrentPricesForItems: items =>
+      dispatch(updateCurrentPricesForItems(items))
   };
 };
 
@@ -27,16 +32,51 @@ const mapDispatchToProps = dispatch => {
     Header Component
 */
 class Header extends Component {
-  render() {
+  constructor(props) {
+    super(props);
+
+    // State
+    this.state = {
+      items: this.props.items,
+      spendingMoney: 0.0
+    };
+
+    // Bindings
+    this.updateSpendingMoneyAndCurrentPriceItems = this.updateSpendingMoneyAndCurrentPriceItems.bind(
+      this
+    );
+  }
+
+  componentDidMount() {
+    // Update current prices for each items
+    this.updateSpendingMoneyAndCurrentPriceItems();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // Update 'spendingMoney' and the current prices for each items
+    if (prevProps.percentage !== this.props.percentage) {
+      this.updateSpendingMoneyAndCurrentPriceItems();
+    }
+  }
+
+  updateSpendingMoneyAndCurrentPriceItems() {
     // @todo: need to format numbers
     const spendingMoney = calculateSpendingMoney(
       this.props.percentage,
       this.props.totalMoney
     );
 
-    // Allocate Spending Money
-    allocateSpendingMoneyToItems(spendingMoney, this.props.items);
+    this.setState({ spendingMoney });
 
+    // Allocate Spending Money
+    const updatedCurrentPrices = allocateSpendingMoneyToItems(
+      spendingMoney,
+      this.state.items
+    );
+    this.props.updateCurrentPricesForItems(updatedCurrentPrices);
+  }
+
+  render() {
     return (
       <header className="header" id="header">
         <h1 className="header__app-name">WISELY</h1>
@@ -44,14 +84,14 @@ class Header extends Component {
           Spending Money:{" "}
           <strong>
             ${" "}
-            {spendingMoney.toLocaleString("en-US", {
+            {this.state.spendingMoney.toLocaleString("en-US", {
               style: "currency",
               currency: "USD"
             })}
           </strong>
         </p>
         <p className="header__percentage-and-total-money-subnote">
-          The spending money is {this.props.percentage}% of your total budget: $
+          The spending money is {this.props.percentage}% of your total budget:{" "}
           {this.props.totalMoney.toLocaleString("en-US", {
             style: "currency",
             currency: "USD"

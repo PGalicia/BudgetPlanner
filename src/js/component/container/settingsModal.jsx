@@ -1,24 +1,32 @@
 import React, { Component } from "react"; // React
 import { connect } from "react-redux"; // React-Redux
 import CloseIcon from "./../../../asset/x-icon.svg"; // Asset
-import { toggleSettingsModal } from "./../../action/index.js"; // Action Types
+import {
+  toggleSettingsModal,
+  updateMoneyInformation
+} from "../../action/index.js"; // Action Types
 
 /*
   mapDispatchToProps
 */
+const mapStateToProps = state => {
+  return { totalMoney: state.totalMoney, percentage: state.percentage };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
-    toggleSettingsModal: bool => dispatch(toggleSettingsModal(bool))
+    toggleSettingsModal: bool => dispatch(toggleSettingsModal(bool)),
+    updateMoneyInformation: money => dispatch(updateMoneyInformation(money))
   };
 };
 
 class SettingsModal extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      totalMoney: 0,
-      percentage: 0
+      totalMoney: this.props.totalMoney,
+      percentage: this.props.percentage
     };
 
     this.handlePercentageInputChange = this.handlePercentageInputChange.bind(
@@ -28,13 +36,6 @@ class SettingsModal extends Component {
       this
     );
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  componentDidMount() {
-    this.setState({
-      totalMoney: this.props.totalMoney,
-      percentage: this.props.percentage
-    });
   }
 
   handlePercentageInputChange(e) {
@@ -69,7 +70,18 @@ class SettingsModal extends Component {
     this.setState({ totalMoney });
   }
 
-  handleSubmit(e) {}
+  handleSubmit(e) {
+    // Update Redux 'totalMoney' and 'percentage'
+    e.preventDefault();
+
+    const money = {
+      totalMoney: this.state.totalMoney,
+      percentage: this.state.percentage
+    };
+
+    this.props.updateMoneyInformation(money);
+    this.props.toggleSettingsModal(false);
+  }
 
   render() {
     return (
@@ -87,8 +99,6 @@ class SettingsModal extends Component {
               id="total-budget-input"
               value={this.state.totalMoney}
               onChange={this.handleTotalMoneyInputChange}
-              min="0"
-              max="500000"
             />
             <span className="settings-modal__input-icon">$</span>
           </div>
@@ -120,6 +130,6 @@ class SettingsModal extends Component {
   }
 }
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(SettingsModal);

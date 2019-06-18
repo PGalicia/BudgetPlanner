@@ -13,14 +13,15 @@ const Item = posed.div({
 });
 
 class ItemCard extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     // DOM Access
     this.moreIcon = React.createRef();
 
     // State
     this.state = {
+      item: this.props.item,
       isMoreMenuOnDisplay: false,
       progressBarPercentage: 0,
       progressBarWidth: 0
@@ -36,33 +37,21 @@ class ItemCard extends Component {
     );
   }
 
-  componentWillMount() {
-    // Set Interval used for progress bar animation
-    this.progressBarInterval = setInterval(() => {
-      this.setState({
-        progressBarWidth: Math.ceil(
-          (this.state.progressBarPercentage / 100) * 422
-        ),
-        progressBarPercentage: this.state.progressBarPercentage + 1
-      });
-    }, 10);
-
+  componentDidMount() {
     document.addEventListener(
       "mousedown",
-      this.handleUserClickWhenMoreMenuIsDisplayed,
-      false
+      this.handleUserClickWhenMoreMenuIsDisplayed
     );
   }
 
   componentWillUnmount() {
     document.addEventListener(
       "mousedown",
-      this.handleUserClickWhenMoreMenuIsDisplayed,
-      false
+      this.handleUserClickWhenMoreMenuIsDisplayed
     );
   }
 
-  toggleMoreIconButtonPress(e) {
+  toggleMoreIconButtonPress() {
     this.setState({ isMoreMenuOnDisplay: !this.state.isMoreMenuOnDisplay });
   }
 
@@ -83,26 +72,23 @@ class ItemCard extends Component {
       description,
       goalPrice,
       currentPrice,
+      percentage,
       priority,
       link
-    } = this.props.item;
+    } = this.state.item;
 
-    // Determine the item percentage
-    const progressBarPercentage = Math.floor((currentPrice / goalPrice) * 100);
-
-    // When the progressBarPercentage and progressBarWidth is the same as progress bar
-    // declared in the states, then clear interval
-    if (progressBarPercentage <= this.state.progressBarPercentage) {
-      clearInterval(this.progressBarInterval);
-    }
+    // Update  progress bar width
+    const progressBarWidth = Math.ceil(
+      (this.props.item.percentage / 100) * 422
+    );
 
     // Determine which color to use for progress bar
-    const progressBarColor = determineProgressBarColor(progressBarPercentage);
+    const progressBarColor = determineProgressBarColor(percentage);
 
     // Progress bar style
     const progressBarStyle = {
       backgroundColor: progressBarColor,
-      width: `${this.state.progressBarWidth}px`
+      width: `${progressBarWidth}px`
     };
 
     // Determine the color and text of priority
@@ -140,9 +126,7 @@ class ItemCard extends Component {
           <span className="item__price">{`$${currentPrice}/$${goalPrice}`}</span>
         </h4>
         <div className="item__progress-bar-container">
-          <h4 className="item__percentage">{`${
-            this.state.progressBarPercentage
-          }%`}</h4>
+          <h4 className="item__percentage">{`${percentage}%`}</h4>
           <div className="item__goal-bar" />
           <div className="item__current-bar" style={progressBarStyle} />
         </div>

@@ -17,6 +17,8 @@ export const allocateSpendingMoneyToItems = (spendingMoney, items) => {
     // Check which item list from above contains an item
     let availableItems = [highPriorityItems, mediumPriorityItems, lowPriorityItems].filter(itemList => itemList.length > 0);
 
+    let result = [];
+
     // Iterate through available items
     let availableMoneyForEachItem = 0, leftOverMoney = 0;
 
@@ -41,11 +43,19 @@ export const allocateSpendingMoneyToItems = (spendingMoney, items) => {
             } else {
                 item.currentPrice = availableMoney;
             }
+
+            // Get item percentage
+            item.percentage = ((item.currentPrice / item.goalPrice) * 100).toFixed(2);
+
+            // Add items to result
+            result.push(item);
         }
 
         // Reset spendingMoney and leftOverMoney
         spendingMoney = leftOverMoney
         leftOverMoney = 0;
-    }    
+    }
+
+    return result;
 
 }
