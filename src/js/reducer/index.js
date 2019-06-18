@@ -19,6 +19,7 @@ const rootReducer = (state = initialState, action) => {
         case TOGGLE_SETTINGS_MODAL:
             return { ...state, isSettingsModalOpen: action.payload }
         case UPDATE_MONEY_INFORMATION:
+            console.log("totalMoney", typeof action.payload.totalMoney)
             return { ...state, totalMoney: action.payload.totalMoney, percentage: action.payload.percentage }
         case UPDATE_CURRENT_PRICE_FOR_ITEMS:
             return { ...state, items: action.payload }

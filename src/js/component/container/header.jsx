@@ -53,8 +53,11 @@ class Header extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // Update 'spendingMoney' and the current prices for each items
-    if (prevProps.percentage !== this.props.percentage) {
+    // Update 'spendingMoney', 'totalMoney', and the current prices for each items
+    if (
+      prevProps.percentage !== this.props.percentage ||
+      prevProps.totalMoney !== this.props.totalMoney
+    ) {
       this.updateSpendingMoneyAndCurrentPriceItems();
     }
   }

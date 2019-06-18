@@ -64,9 +64,6 @@ class SettingsModal extends Component {
         .concat(".", totalMoney.slice(-2));
     }
 
-    // Change string to float
-    totalMoney = Number.parseFloat(totalMoney);
-
     this.setState({ totalMoney });
   }
 
@@ -75,7 +72,7 @@ class SettingsModal extends Component {
     e.preventDefault();
 
     const money = {
-      totalMoney: this.state.totalMoney,
+      totalMoney: Number.parseFloat(this.state.totalMoney),
       percentage: this.state.percentage
     };
 
@@ -99,6 +96,7 @@ class SettingsModal extends Component {
               id="total-budget-input"
               value={this.state.totalMoney}
               onChange={this.handleTotalMoneyInputChange}
+              min="0"
             />
             <span className="settings-modal__input-icon">$</span>
           </div>
