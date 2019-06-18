@@ -35,6 +35,7 @@ class ItemCard extends Component {
     this.handleUserClickWhenMoreMenuIsDisplayed = this.handleUserClickWhenMoreMenuIsDisplayed.bind(
       this
     );
+    this.handleDeleteButtonPress = this.handleDeleteButtonPress.bind(this);
   }
 
   componentDidMount() {
@@ -66,8 +67,15 @@ class ItemCard extends Component {
     }
   }
 
+  handleDeleteButtonPress() {
+    // Open Delete Confirmation Modal and pass in the item to that component
+    this.props.handleDeleteButtonPress(this.state.item);
+    this.props.toggleDeleteModal(true);
+  }
+
   render() {
     const {
+      id,
       name,
       description,
       goalPrice,
@@ -143,7 +151,7 @@ class ItemCard extends Component {
             <button className="item__extra-menu-link">Edit</button>
             <button
               className="item__extra-menu-link"
-              onClick={this.props.handleDeleteButtonPress}
+              onClick={this.handleDeleteButtonPress}
             >
               Delete
             </button>

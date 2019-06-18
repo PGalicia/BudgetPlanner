@@ -1,5 +1,6 @@
 import React, { Component } from "react"; // React
 import { connect } from "react-redux"; // React-Redux
+import { updateTargetItem, toggleDeleteModal } from "./../../action/index.js"; // Action Types
 import ItemCard from "./../presentational/itemCard.jsx"; // Component
 import { determineItemOrder } from "./../../utils/determineItemOrder.js"; // Utils
 import posed from "react-pose"; // Library
@@ -16,11 +17,19 @@ const ItemContainer = posed.section({
 });
 
 /*
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 */
 const mapStateToProps = state => {
   return {
     items: state.items
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    updateTargetItem: item => dispatch(updateTargetItem(item)),
+    toggleDeleteModal: bool => dispatch(toggleDeleteModal(bool))
   };
 };
 
@@ -39,6 +48,7 @@ class ItemsContainer extends Component {
 
     // Binding
     this.handleSortByChoice = this.handleSortByChoice.bind(this);
+    this.handleDeleteButtonPress = this.handleSortByChoice.bind(this);
   }
 
   componentDidMount() {
@@ -96,7 +106,12 @@ class ItemsContainer extends Component {
           </div>
           {determineItemOrder(this.props.items, this.state.sortByChoice).map(
             item => (
-              <ItemCard key={item.id} item={item} />
+              <ItemCard
+                key={item.id}
+                item={item}
+                handleDeleteButtonPress={this.props.updateTargetItem}
+                toggleDeleteModal={this.props.toggleDeleteModal}
+              />
             )
           )}
         </ItemContainer>
@@ -105,4 +120,7 @@ class ItemsContainer extends Component {
   }
 }
 
-export default connect(mapStateToProps)(ItemsContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ItemsContainer);

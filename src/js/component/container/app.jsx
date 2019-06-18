@@ -3,7 +3,7 @@ import ItemsContainer from "./itemsContainer.jsx"; // Component
 import Header from "./header.jsx"; // Component
 import "./../../scss/index.scss"; // SCSS
 import { connect } from "react-redux"; // React-Redux
-import DeleteConfirmationModal from "./../presentational/deleteCofirmationModal.jsx"; // Component
+import DeleteConfirmationModal from "./deleteCofirmationModal.jsx"; // Component
 import SettingsModal from "./settingsModal.jsx"; // Component
 import ItemForm from "./itemForm.jsx"; // Component
 
