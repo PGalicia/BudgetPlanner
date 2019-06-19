@@ -1,3 +1,5 @@
+import { bigIntLiteral } from "@babel/types";
+
 /*
     allocateSpendingMoneyToItems calculate how much money to allocate to each items.
     
@@ -24,8 +26,6 @@ export const allocateSpendingMoneyToItems = (spendingMoney, items) => {
 
     for(let itemList of availableItems) {
 
-        // let moneyPool = availableItems.indexOf(itemList) === 0 ? spendingMoney : leftOverMoney;
-
         availableMoneyForEachItem = (spendingMoney / itemList.length).toFixed(2);
 
         for(let item of itemList) {
@@ -42,7 +42,10 @@ export const allocateSpendingMoneyToItems = (spendingMoney, items) => {
                 leftOverMoney = (availableMoney - item.currentPrice).toFixed(2);
             } else {
                 item.currentPrice = availableMoney;
+                leftOverMoney = 0;
             }
+
+            console.log(item.name, leftOverMoney)
 
             // Get item percentage
             item.percentage = ((item.currentPrice / item.goalPrice) * 100).toFixed(2);
