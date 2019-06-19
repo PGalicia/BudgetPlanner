@@ -45,8 +45,6 @@ export const allocateSpendingMoneyToItems = (spendingMoney, items) => {
                 leftOverMoney = 0;
             }
 
-            console.log(item.name, leftOverMoney)
-
             // Get item percentage
             item.percentage = ((item.currentPrice / item.goalPrice) * 100).toFixed(2);
 

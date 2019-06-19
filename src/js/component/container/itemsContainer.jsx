@@ -1,6 +1,10 @@
 import React, { Component } from "react"; // React
 import { connect } from "react-redux"; // React-Redux
-import { updateTargetItem, toggleDeleteModal } from "./../../action/index.js"; // Action Types
+import {
+  updateTargetItem,
+  toggleDeleteModal,
+  toggleItemFormModal
+} from "./../../action/index.js"; // Action Types
 import ItemCard from "./../presentational/itemCard.jsx"; // Component
 import { determineItemOrder } from "./../../utils/determineItemOrder.js"; // Utils
 import posed from "react-pose"; // Library
@@ -29,7 +33,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     updateTargetItem: item => dispatch(updateTargetItem(item)),
-    toggleDeleteModal: bool => dispatch(toggleDeleteModal(bool))
+    toggleDeleteModal: bool => dispatch(toggleDeleteModal(bool)),
+    toggleItemFormModal: bool => dispatch(toggleItemFormModal(bool))
   };
 };
 
@@ -110,7 +115,9 @@ class ItemsContainer extends Component {
                 key={item.id}
                 item={item}
                 handleDeleteButtonPress={this.props.updateTargetItem}
+                handleEditButtonPress={this.props.updateTargetItem}
                 toggleDeleteModal={this.props.toggleDeleteModal}
+                toggleEditModal={this.props.toggleItemFormModal}
               />
             )
           )}

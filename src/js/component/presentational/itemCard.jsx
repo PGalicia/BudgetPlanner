@@ -36,6 +36,7 @@ class ItemCard extends Component {
       this
     );
     this.handleDeleteButtonPress = this.handleDeleteButtonPress.bind(this);
+    this.handleEditButtonPress = this.handleEditButtonPress.bind(this);
   }
 
   componentDidMount() {
@@ -71,6 +72,11 @@ class ItemCard extends Component {
     // Open Delete Confirmation Modal and pass in the item to that component
     this.props.handleDeleteButtonPress(this.state.item);
     this.props.toggleDeleteModal(true);
+  }
+
+  handleEditButtonPress() {
+    this.props.handleEditButtonPress(this.state.item);
+    this.props.toggleEditModal(true);
   }
 
   render() {
@@ -148,7 +154,12 @@ class ItemCard extends Component {
         {/* Pop up links */}
         {this.state.isMoreMenuOnDisplay && (
           <div className="item__extra-menu" ref={this.moreIcon}>
-            <button className="item__extra-menu-link">Edit</button>
+            <button
+              className="item__extra-menu-link"
+              onClick={this.handleEditButtonPress}
+            >
+              Edit
+            </button>
             <button
               className="item__extra-menu-link"
               onClick={this.handleDeleteButtonPress}

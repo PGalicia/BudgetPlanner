@@ -2,8 +2,10 @@ import {
     TOGGLE_SETTINGS_MODAL, 
     UPDATE_MONEY_INFORMATION, 
     UPDATE_CURRENT_PRICE_FOR_ITEMS, 
-    UPDATE_TARGETED_ITEM, 
-    TOGGLE_DELETE_MODAL ,
+    UPDATE_TARGETED_ITEM,
+    UPDATE_ITEM_INFORMATION,
+    TOGGLE_DELETE_MODAL,
+    TOGGLE_FORM_MODAL,
     DELETE_ITEM
 } from "./../constant/actionTypes.js"; // Action Types Constant
 
@@ -27,8 +29,18 @@ export const updateTargetItem = target => ({
     payload: target
 });
 
+export const updateItemInformation = item => ({
+    type: UPDATE_ITEM_INFORMATION,
+    payload: item
+});
+
 export const toggleDeleteModal = bool => ({
     type: TOGGLE_DELETE_MODAL,
+    payload: bool
+});
+
+export const toggleItemFormModal = bool => ({
+    type: TOGGLE_FORM_MODAL,
     payload: bool
 });
 

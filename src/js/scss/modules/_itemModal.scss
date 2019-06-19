@@ -19,6 +19,10 @@
     }
     > input {
       width: 100%;
+
+      &#item-cost-input {
+        text-align: right;
+      }
     }
 
     &#cost {

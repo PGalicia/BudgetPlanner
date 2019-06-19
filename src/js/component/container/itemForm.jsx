@@ -1,5 +1,21 @@
 import React, { Component } from "react"; // React
+import { connect } from "react-redux"; // React-Redux
+import {
+  toggleItemFormModal,
+  updateItemInformation
+} from "./../../action/index.js"; // Action Types
 import CloseIcon from "./../../../asset/x-icon.svg"; // Asset
+
+/*
+  mapStateToProps,
+  mapDispatchToProps
+*/
+const mapDispatchToProps = dispatch => {
+  return {
+    toggleItemFormModal: bool => dispatch(toggleItemFormModal(bool)),
+    updateItemInformation: item => dispatch(updateItemInformation(item))
+  };
+};
 
 class ItemForm extends Component {
   constructor() {
@@ -17,8 +33,11 @@ class ItemForm extends Component {
       }
     };
 
+    // Bindings
     this.handlePriorityChoice = this.handlePriorityChoice.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleItemCostInputChange = this.handleItemCostInputChange.bind(this);
+    this.handleTextInputChange = this.handleTextInputChange.bind(this);
   }
 
   componentDidMount() {
@@ -33,9 +52,43 @@ class ItemForm extends Component {
     this.setState({ item });
   }
 
-  // @todo: finish creating form submit
+  handleItemCostInputChange(e) {
+    const item = this.state.item;
+
+    // Remove all periods
+    let itemCost =
+      e.target.value === "" ? "0" : e.target.value.replace(".", "");
+
+    // Limit the number to 7 character (including the period)
+    if (itemCost.length > 7) {
+      return;
+    }
+    if (itemCost.length > 2) {
+      // Place the period to mimick money format
+      itemCost = itemCost
+        .substring(0, itemCost.length - 2)
+        .concat(".", itemCost.slice(-2));
+    }
+
+    item.goalPrice = itemCost;
+
+    this.setState({ item });
+  }
+
+  handleTextInputChange(e, category) {
+    const item = this.state.item;
+
+    // Change the value to reflect the user input
+    item[`${category}`] = e.target.value;
+
+    this.setState({ item });
+  }
+
   handleFormSubmit(e) {
-    e.preventDefualt();
+    e.preventDefault();
+
+    // Update Item Information
+    this.props.updateItemInformation(this.state.item);
   }
 
   render() {
@@ -68,26 +121,46 @@ class ItemForm extends Component {
                 Name <span className="item-modal__asterisk">*</span>
                 <span className="side-note">max character 21</span>
               </label>
-              {/* @todo Apply Max Character Rule */}
-              <input type="text" id="name-input" value={name} />
+              <input
+                type="text"
+                id="name-input"
+                value={name}
+                onChange={e => this.handleTextInputChange(e, "name")}
+                maxLength="21"
+              />
             </div>
             <div className="item-modal__input" id="cost">
               <label htmlFor="item-cost-input">
                 Item Cost <span className="item-modal__asterisk">*</span>
               </label>
-              {/* @todo Format number input */}
-              <input type="text" id="item-cost-input" value={goalPrice} />
+              <input
+                type="number"
+                id="item-cost-input"
+                value={goalPrice}
+                onChange={this.handleItemCostInputChange}
+                min="0"
+              />
             </div>
             <div className="item-modal__input" id="description">
               <label htmlFor="description-input">
                 Description<span className="side-note">max character 123</span>
               </label>
-              {/* @todo Apply Max Character Rule */}
-              <input type="text" id="description-input" value={description} />
+              <input
+                type="text"
+                id="description-input"
+                value={description}
+                onChange={e => this.handleTextInputChange(e, "description")}
+                maxLength="123"
+              />
             </div>
             <div className="item-modal__input" id="link">
               <label htmlFor="link-input">Link</label>
-              <input type="text" id="link-input" value={link} />
+              <input
+                type="text"
+                id="link-input"
+                value={link}
+                onChange={e => this.handleTextInputChange(e, "link")}
+              />
             </div>
             <div className="item-modal__priority">
               <span>Priority </span>
@@ -120,11 +193,19 @@ class ItemForm extends Component {
               Apply Changes
             </button>
           </form>
-          <img className="close-button" src={CloseIcon} alt="Close Icon" />
+          <img
+            className="close-button"
+            src={CloseIcon}
+            alt="Close Icon"
+            onClick={() => this.props.toggleItemFormModal(false)}
+          />
         </div>
       </div>
     );
   }
 }
 
-export default ItemForm;
+export default connect(
+  null,
+  mapDispatchToProps
+)(ItemForm);
