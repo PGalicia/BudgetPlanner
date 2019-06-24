@@ -94,11 +94,8 @@ class ItemForm extends Component {
     const item = this.state.item;
     item.goalPrice = Number.parseFloat(item.goalPrice);
 
-    // Update Item Information
+    // Update Item Information and reallocate money
     this.props.updateItemInformation(item);
-
-    // Reallocate money
-    this.props.updateCurrentPricesForItems();
   }
 
   render() {

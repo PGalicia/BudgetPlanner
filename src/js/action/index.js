@@ -19,9 +19,9 @@ export const updateMoneyInformation = money => ({
     payload: money
 });
 
-export const updateCurrentPricesForItems = items => ({
+export const updateCurrentPricesForItems = () => ({
     type: UPDATE_CURRENT_PRICE_FOR_ITEMS,
-    payload: items
+    payload: null
 });
 
 export const updateTargetItem = target => ({

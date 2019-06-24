@@ -38,6 +38,7 @@ const rootReducer = (state = initialState, action) => {
         case DELETE_ITEM:
             index = items.indexOf(action.payload); // Find item index
             items.splice(index, 1); // Remove item @ 'index'
+            items = allocateSpendingMoneyToItems(spendingMoney, items); // Allocate money
             return { ...state, targetedItem: null, isDeleteConfirmationModalOpen: false, items: [ ...items ] };
         case UPDATE_CURRENT_PRICE_FOR_ITEMS:
             items = allocateSpendingMoneyToItems(spendingMoney, items); // Allocate money
@@ -48,6 +49,7 @@ const rootReducer = (state = initialState, action) => {
             const targetItem = items.find(i => i.id === action.payload.id); // Find the targetItem
             index = items.indexOf(targetItem); // Find item index
             items.splice(index, 1, action.payload); // Replace item with action.payload @ 'index'
+            items = allocateSpendingMoneyToItems(spendingMoney, items); // Allocate money
             return { ...state, items: [ ...items ], isItemFormPopUpOpen: false, targetedItem: null }
         case TOGGLE_DELETE_MODAL:
             return { ...state, isDeleteConfirmationModalOpen: action.payload }
