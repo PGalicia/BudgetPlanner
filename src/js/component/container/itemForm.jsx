@@ -32,6 +32,7 @@ class ItemForm extends Component {
         currentPrice: 0,
         goalPrice: 0,
         priority: 3,
+        percentage: 0,
         link: ""
       }
     };
@@ -103,7 +104,6 @@ class ItemForm extends Component {
       id,
       name,
       description,
-      currentPrice,
       goalPrice,
       priority,
       link
@@ -134,6 +134,7 @@ class ItemForm extends Component {
                 value={name}
                 onChange={e => this.handleTextInputChange(e, "name")}
                 maxLength="21"
+                required
               />
             </div>
             <div className="item-modal__input" id="cost">

@@ -4,7 +4,8 @@ import CogIcon from "./../../../asset/cog-icon.svg"; // Asset
 import { calculateSpendingMoney } from "./../../utils/calculateSpendingMoney.js"; // Utils
 import {
   toggleSettingsModal,
-  updateCurrentPricesForItems
+  updateCurrentPricesForItems,
+  toggleItemFormModal
 } from "./../../action/index.js"; // Action Types
 
 /*
@@ -22,7 +23,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     toggleSettingsModal: bool => dispatch(toggleSettingsModal(bool)),
-    updateCurrentPricesForItems: () => dispatch(updateCurrentPricesForItems())
+    updateCurrentPricesForItems: () => dispatch(updateCurrentPricesForItems()),
+    toggleItemFormModal: bool => dispatch(toggleItemFormModal(bool))
   };
 };
 
@@ -94,7 +96,12 @@ class Header extends Component {
             currency: "USD"
           })}
         </p>
-        <button className="header__add-item-button">Add Item</button>
+        <button
+          className="header__add-item-button"
+          onClick={() => this.props.toggleItemFormModal(true)}
+        >
+          Add Item
+        </button>
         <button
           className="header__settings-button"
           onClick={() => this.props.toggleSettingsModal(true)}

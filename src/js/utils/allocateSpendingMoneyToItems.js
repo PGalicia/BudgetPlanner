@@ -46,7 +46,8 @@ export const allocateSpendingMoneyToItems = (spendingMoney, items) => {
             }
 
             // Get item percentage
-            item.percentage = ((item.currentPrice / item.goalPrice) * 100).toFixed(2);
+            item.percentage = ((item.currentPrice / item.goalPrice) * 100).toFixed(2);            
+            item.percentage = item.goalPrice === 0 ? 0 : item.percentage; // If goalPrice is zero, then ensure that percentage is 0 and not NaN
 
             // Add items to result
             result.push(item);
