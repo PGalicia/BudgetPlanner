@@ -2,7 +2,6 @@ import React, { Component } from "react"; // React
 import { connect } from "react-redux"; // React-Redux
 import CogIcon from "./../../../asset/cog-icon.svg"; // Asset
 import { calculateSpendingMoney } from "./../../utils/calculateSpendingMoney.js"; // Utils
-import { allocateSpendingMoneyToItems } from "./../../utils/allocateSpendingMoneyToItems.js"; // Utils
 import {
   toggleSettingsModal,
   updateCurrentPricesForItems
@@ -23,8 +22,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     toggleSettingsModal: bool => dispatch(toggleSettingsModal(bool)),
-    updateCurrentPricesForItems: items =>
-      dispatch(updateCurrentPricesForItems(items))
+    updateCurrentPricesForItems: () => dispatch(updateCurrentPricesForItems())
   };
 };
 
@@ -71,12 +69,8 @@ class Header extends Component {
 
     this.setState({ spendingMoney });
 
-    // Allocate Spending Money
-    const updatedCurrentPrices = allocateSpendingMoneyToItems(
-      spendingMoney,
-      this.state.items
-    );
-    this.props.updateCurrentPricesForItems(updatedCurrentPrices);
+    // Update the allocation of money
+    this.props.updateCurrentPricesForItems();
   }
 
   render() {

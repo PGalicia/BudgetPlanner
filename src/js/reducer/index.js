@@ -12,6 +12,8 @@ import {
     TOGGLE_FORM_MODAL,
     DELETE_ITEM 
 } from "./../constant/actionTypes.js"; // Constant
+import { calculateSpendingMoney } from "./../utils/calculateSpendingMoney.js"; // Utils
+import { allocateSpendingMoneyToItems } from "./../utils/allocateSpendingMoneyToItems.js"; // Utils
 
 const initialState = {
     items: ITEMS,
@@ -24,7 +26,9 @@ const initialState = {
 }
 
 const rootReducer = (state = initialState, action) => {
-    const items = state.items;
+    let items = state.items;
+    const totalMoney = state.totalMoney, percentage = state.percentage;
+    const spendingMoney = calculateSpendingMoney(percentage, totalMoney); // Calculate spending money
     let index = null;
     switch(action.type) {
         case TOGGLE_SETTINGS_MODAL:
@@ -36,7 +40,8 @@ const rootReducer = (state = initialState, action) => {
             items.splice(index, 1); // Remove item @ 'index'
             return { ...state, targetedItem: null, isDeleteConfirmationModalOpen: false, items: [ ...items ] };
         case UPDATE_CURRENT_PRICE_FOR_ITEMS:
-            return { ...state, items: action.payload }
+            items = allocateSpendingMoneyToItems(spendingMoney, items); // Allocate money
+            return { ...state, items: [ ...items ] }
         case UPDATE_TARGETED_ITEM:
             return { ...state, targetedItem: action.payload }
         case UPDATE_ITEM_INFORMATION:

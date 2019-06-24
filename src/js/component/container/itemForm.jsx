@@ -2,7 +2,8 @@ import React, { Component } from "react"; // React
 import { connect } from "react-redux"; // React-Redux
 import {
   toggleItemFormModal,
-  updateItemInformation
+  updateItemInformation,
+  updateCurrentPricesForItems
 } from "./../../action/index.js"; // Action Types
 import CloseIcon from "./../../../asset/x-icon.svg"; // Asset
 
@@ -13,7 +14,9 @@ import CloseIcon from "./../../../asset/x-icon.svg"; // Asset
 const mapDispatchToProps = dispatch => {
   return {
     toggleItemFormModal: bool => dispatch(toggleItemFormModal(bool)),
-    updateItemInformation: item => dispatch(updateItemInformation(item))
+    updateItemInformation: item => dispatch(updateItemInformation(item)),
+    updateCurrentPricesForItems: items =>
+      dispatch(updateCurrentPricesForItems(items))
   };
 };
 
@@ -87,8 +90,15 @@ class ItemForm extends Component {
   handleFormSubmit(e) {
     e.preventDefault();
 
+    // Change goalPrice from string to float
+    const item = this.state.item;
+    item.goalPrice = Number.parseFloat(item.goalPrice);
+
     // Update Item Information
-    this.props.updateItemInformation(this.state.item);
+    this.props.updateItemInformation(item);
+
+    // Reallocate money
+    this.props.updateCurrentPricesForItems();
   }
 
   render() {

@@ -53,7 +53,6 @@ class ItemsContainer extends Component {
 
     // Binding
     this.handleSortByChoice = this.handleSortByChoice.bind(this);
-    this.handleDeleteButtonPress = this.handleSortByChoice.bind(this);
   }
 
   componentDidMount() {
